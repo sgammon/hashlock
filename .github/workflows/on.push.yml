@@ -9,62 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  test-typescript:
-    name: TypeScript Tests
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Harden Runner
-        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
-        with:
-          egress-policy: audit
-
-      - name: Checkout
-        id: checkout
-        uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
-
-      - name: 'Setup: Node'
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
-        with:
-          node-version-file: .node-version
-
-      - name: 'Setup: PNPM'
-        uses: pnpm/action-setup@a3252b78c470c02df07e9d59298aecedc3ccdd6d # v3.0.0
-        with:
-          version: ${{ vars.PNPM_VERSION || '8.15.3' }}
-          run_install: |
-            - args: [--frozen-lockfile, --strict-peer-dependencies]
-
-      - name: Check Format
-        id: npm-format-check
-        run: pnpm run format:check
-
-      - name: Lint
-        id: npm-lint
-        run: pnpm run lint
-
-      - name: Test
-        id: npm-ci-test
-        run: pnpm run ci-test
-
-  test-action:
-    name: GitHub Actions Test
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Harden Runner
-        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
-        with:
-          egress-policy: audit
-
-      - name: Checkout
-        id: checkout
-        uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
-
-      - name: Test Local Action
-        id: test-action
-        uses: ./
-
-      - name: Print Output
-        id: output
-        run: echo "${{ steps.test-action.outputs.time }}"
+  build-test:
+    name: 'Build & Test'
+    uses: ./.github/workflows/ci.build-test.yml
+    secrets: inherit

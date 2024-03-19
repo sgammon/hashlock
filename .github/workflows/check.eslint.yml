@@ -1,32 +1,18 @@
-name: 'Check: CodeQL'
+name: 'Check: ESLint'
 
 on:
+  workflow_call: {}
   push:
     branches:
       - main
-  workflow_call: {}
-  schedule:
-    - cron: '31 7 * * 3'
 
 permissions:
   contents: read
 
 jobs:
-  analyze:
-    name: 'Check: CodeQL (${{ matrix.language }})'
+  check-eslint:
+    name: 'Check: ESLint'
     runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      checks: write
-      contents: read
-      security-events: write
-
-    strategy:
-      fail-fast: false
-      matrix:
-        language:
-          - TypeScript
-
     steps:
       - name: 'Setup: Harden Runner'
         uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
@@ -51,15 +37,12 @@ jobs:
           version: '8.15.3'
           run_install: |
             - args: [--frozen-lockfile, --strict-peer-dependencies]
-      - name: 'CodeQL: Initialize'
-        id: initialize
-        uses: github/codeql-action/init@05963f47d870e2cb19a537396c1f668a348c7d8f # v3.24.8
+      - name: 'Check: Run ESLint'
+        run: |
+          bun run lint . -- --format @microsoft/eslint-formatter-sarif --output-file eslint-results.sarif
+        continue-on-error: true
+      - name: 'Analysis: SARIF'
+        uses: github/codeql-action/upload-sarif@05963f47d870e2cb19a537396c1f668a348c7d8f # v3.24.8
         with:
-          languages: ${{ matrix.language }}
-          source-root: src
-      - name: 'CodeQL: Autobuild'
-        id: autobuild
-        uses: github/codeql-action/autobuild@05963f47d870e2cb19a537396c1f668a348c7d8f # v3.24.8
-      - name: 'CodeQL: Analysis'
-        id: analyze
-        uses: github/codeql-action/analyze@05963f47d870e2cb19a537396c1f668a348c7d8f # v3.24.8
+          sarif_file: eslint-results.sarif
+          wait-for-processing: true

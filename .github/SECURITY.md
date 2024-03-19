@@ -2,7 +2,8 @@
 
 ## Supported Versions
 
-The following library versions are currently supported for security updates and vulnerability reporting:
+The following library versions are currently supported for security updates and
+vulnerability reporting:
 
 | Version  | Supported          |
 | -------- | ------------------ |
@@ -10,5 +11,5 @@ The following library versions are currently supported for security updates and 
 
 ## Reporting a Vulnerability
 
-Please report all vulnerabilities, in private if necessary, to the [Elide Project](https://elide.dev).
-
+Please report all vulnerabilities, in private if necessary, to the
+[Elide Project](https://elide.dev).
