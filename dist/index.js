@@ -27374,12 +27374,14 @@ const main_1 = __importDefault(__nccwpck_require__(9356));
  */
 async function run() {
     const strict = github_1.core.getInput('strict').toUpperCase() !== 'FALSE';
-    const paths = (github_1.core.getInput('paths') || '.').split('\n').filter(i => !!i);
+    const paths = (github_1.core.getInput('paths') || '.')
+        .split('\n')
+        .filter((i) => !!i);
     const globs = (github_1.core.getInput('globs') || 'true').toUpperCase() !== 'FALSE';
     const ignored = github_1.core
         .getInput('ignored')
         .split('\n')
-        .filter(i => !!i);
+        .filter((i) => !!i);
     const followSymbolicLinks = github_1.core.getInput('follow-symbolic-links').toUpperCase() !== 'FALSE';
     return await (0, main_1.default)(paths, strict, ignored, globs, followSymbolicLinks);
 }

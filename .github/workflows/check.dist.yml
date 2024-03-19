@@ -1,9 +1,7 @@
 name: 'Check: Dist'
 
 on:
-  pull_request:
-    branches:
-      - main
+  workflow_call: {}
   push:
     branches:
       - main
@@ -13,37 +11,37 @@ permissions:
 
 jobs:
   check-dist:
-    name: Check dist/
+    name: 'Check: Dist'
     runs-on: ubuntu-latest
 
     steps:
-      - name: Harden Runner
+      - name: 'Setup: Harden Runner'
         uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
         with:
           egress-policy: audit
-
-      - name: Checkout
+      - name: 'Setup: Checkout'
         id: checkout
         uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
-
+        with:
+          persist-credentials: false
       - name: 'Setup: Node'
         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
           node-version-file: .node-version
-
+      - name: 'Setup: Bun'
+        uses: oven-sh/setup-bun@d3603274aca5625baad52ec06108517a089cdd00 # v1.2.0
+        with:
+          bun-version: latest
       - name: 'Setup: PNPM'
         uses: pnpm/action-setup@a3252b78c470c02df07e9d59298aecedc3ccdd6d # v3.0.0
         with:
-          version: ${{ vars.PNPM_VERSION || '8.15.3' }}
+          version: '8.15.3'
           run_install: |
             - args: [--frozen-lockfile, --strict-peer-dependencies]
-
-      - name: Build dist/ Directory
+      - name: 'Build: Dist'
         id: build
         run: pnpm run bundle
-
-      # This will fail the workflow if the PR wasn't created by Dependabot.
-      - name: Compare Directories
+      - name: 'Check: Compare Directories'
         id: diff
         run: |
           if [ "$(git diff --ignore-space-at-eol --text dist/ | wc -l)" -gt "0" ]; then
@@ -51,11 +49,8 @@ jobs:
             git diff --ignore-space-at-eol --text dist/
             exit 1
           fi
-
-      # If `dist/` was different than expected, and this was not a Dependabot
-      # PR, upload the expected version as a workflow artifact.
       - if: ${{ failure() && steps.diff.outcome == 'failure' }}
-        name: Upload Artifact
+        name: 'Artifact: Dist'
         id: upload
         uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
         with:

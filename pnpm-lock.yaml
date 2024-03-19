@@ -16,6 +16,9 @@ dependencies:
     version: 10.3.10
 
 devDependencies:
+  '@microsoft/eslint-formatter-sarif':
+    specifier: ^3.0.0
+    version: 3.0.0
   '@types/jest':
     specifier: ^29.5.12
     version: 29.5.12
@@ -1068,6 +1071,22 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
+    dev: true
+
+  /@microsoft/eslint-formatter-sarif@3.0.0:
+    resolution:
+      {
+        integrity: sha512-KIKkT44hEqCzqxODYwFMUvYEK0CrdHx/Ll9xiOWgFbBSRuzbxmVy4d/tzfgoucGz72HJZNOMjuyzFTBKntRK5Q==,
+        tarball: https://registry.npmjs.org/@microsoft/eslint-formatter-sarif/-/eslint-formatter-sarif-3.0.0.tgz
+      }
+    engines: { node: '>= 14' }
+    dependencies:
+      eslint: 8.57.0
+      jschardet: 3.1.0
+      lodash: 4.17.21
+      utf8: 3.0.0
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /@nodelib/fs.scandir@2.1.5:
@@ -4925,6 +4944,15 @@ packages:
       argparse: 2.0.1
     dev: true
 
+  /jschardet@3.1.0:
+    resolution:
+      {
+        integrity: sha512-MND0yjRsoQ/3iFXce7lqV/iBmqH9oWGUTlty36obRBZjhFDWCLKjXgfxY75wYfwlW7EFqw52tyziy/q4WsQmrA==,
+        tarball: https://registry.npmjs.org/jschardet/-/jschardet-3.1.0.tgz
+      }
+    engines: { node: '>=0.1.90' }
+    dev: true
+
   /jsesc@2.5.2:
     resolution:
       {
@@ -6676,6 +6704,14 @@ packages:
       }
     dependencies:
       punycode: 2.3.1
+    dev: true
+
+  /utf8@3.0.0:
+    resolution:
+      {
+        integrity: sha512-E8VjFIQ/TyQgp+TZfS6l8yp/xWppSAHzidGiRrqe4bK4XP9pTRyKFgGJpO3SN7zdX4DeomTrwaseCHovfpFcqQ==,
+        tarball: https://registry.npmjs.org/utf8/-/utf8-3.0.0.tgz
+      }
     dev: true
 
   /uuid@8.3.2:
