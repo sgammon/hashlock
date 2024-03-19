@@ -3,7 +3,7 @@ import { existsSync } from 'node:fs'
 import { readFile } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 
-import { glob } from './github'
+import { glob } from 'glob'
 
 import {
   HashVerifierLogger,
@@ -479,20 +479,15 @@ export default async function checkHashes(
   let files: string[]
 
   if (globs) {
-    // grab inputs/config for globbing
-    const globOptions = {
-      followSymbolicLinks,
-      matchDirectories: false
-    }
+    const algorithmExts = allAlgorithms.join(',')
 
     // start generating globs
     const patterns = paths
-      .flatMap(path => allAlgorithms.map(hash => `${path}/**/*.${hash}`))
+      .map(path => `${path}/**/*.{${algorithmExts}}`)
       .concat(ignored.map(entry => `!${entry}`))
 
     // prepare globber, start globbing
-    const globber = await glob.create(patterns.join('\n'), globOptions)
-    files = await globber.glob()
+    files = await glob(patterns)
   } else {
     files = paths.filter(path => {
       return !ignored.includes(path)
@@ -533,6 +528,8 @@ export default async function checkHashes(
 
   const verifiedFiles = results.filter(({ valid }) => valid)
   const failedVerifications = results.filter(({ valid }) => !valid)
+  if (verifiedFiles.length > 0)
+    logging.info(`Verified ${verifiedFiles.length} hash files`)
   reportResults(files, verifiedFiles, failedVerifications, errors, reportTo)
   return {
     verifiedFiles,

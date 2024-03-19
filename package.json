@@ -132,5 +132,8 @@
     "prettier-eslint": "^16.3.0",
     "ts-jest": "^29.1.2",
     "typescript": "^5.4.2"
+  },
+  "dependencies": {
+    "glob": "^10.3.10"
   }
 }
