@@ -13,3 +13,13 @@ jobs:
     name: 'Build & Test'
     uses: ./.github/workflows/ci.build-test.yml
     secrets: inherit
+
+  check-dist:
+    name: 'Checks'
+    uses: ./.github/workflows/check.dist.yml
+
+  check-eslint:
+    name: 'Checks'
+    uses: ./.github/workflows/check.eslint.yml
+    permissions:
+      security-events: write

@@ -2,9 +2,6 @@ name: 'Check: ESLint'
 
 on:
   workflow_call: {}
-  push:
-    branches:
-      - main
 
 permissions:
   contents: read
@@ -13,6 +10,8 @@ jobs:
   check-eslint:
     name: 'Check: ESLint'
     runs-on: ubuntu-latest
+    permissions:
+      security-events: write
     steps:
       - name: 'Setup: Harden Runner'
         uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
