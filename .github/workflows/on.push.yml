@@ -22,4 +22,5 @@ jobs:
     name: 'Checks'
     uses: ./.github/workflows/check.eslint.yml
     permissions:
+      contents: read
       security-events: write
