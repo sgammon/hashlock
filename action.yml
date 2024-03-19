@@ -1,23 +1,37 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Verify Hashes'
+description: 'Verify hash files like <file>.sha256 from GitHub Actions'
+author: 'Sam Gammon'
 
-# Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
-  icon: 'heart'
-  color: 'red'
+  icon: 'check'
+  color: 'green'
 
-# Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
-    required: true
-    default: '1000'
-
-# Define your outputs here.
-outputs:
-  time:
-    description: 'Your output description here'
+  paths:
+    description: 'Paths'
+    required: false
+    default: '.'
+  strict:
+    description: 'Strict Verification'
+    required: false
+    default: 'false'
+  ignored:
+    description: 'Ignored Paths'
+    required: false
+    default: |
+      node_modules/
+  follow-symbolic-links:
+    description: 'Follow Symbolic Links'
+    required: false
+    default: 'false'
+  globs:
+    description: 'Paths are Globs'
+    required: false
+    default: 'true'
+  warn-only:
+    description: 'Only Warn, Never Fail'
+    required: false
+    default: 'false'
 
 runs:
   using: node20
