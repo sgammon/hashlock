@@ -1,7 +1,7 @@
 {
   "name": "@build-infra/verify-hashes-action",
   "description": "Verify hash files (like something.sha256) from GitHub Actions",
-  "version": "1.0.0",
+  "version": "1.0.0-rc1",
   "author": {
     "name": "Sam Gammon",
     "url": "https://github.com/sgammon"
@@ -9,7 +9,7 @@
   "homepage": "https://github.com/sgammon/verify-hashes",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sgammon/verify-hashes.git"
+    "url": "https://github.com/sgammon/verify-hashes"
   },
   "bugs": {
     "url": "https://github.com/sgammon/verify-hashes/issues"
