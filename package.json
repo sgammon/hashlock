@@ -1,7 +1,7 @@
 {
-  "name": "verify-hashes",
+  "name": "hashlock",
   "version": "1.0.0-rc1",
-  "description": "Verify hash files (like something.sha256) from GitHub Actions",
+  "description": "Verify hash files (like something.sha256)",
   "keywords": [
     "actions",
     "cli",
@@ -137,6 +137,6 @@
   },
   "publishConfig": {
     "access": "public",
-    "provenance": false
+    "provenance": true
   }
 }

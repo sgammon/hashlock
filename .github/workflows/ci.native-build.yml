@@ -51,7 +51,6 @@ jobs:
   native-build:
     name: 'Build: Native (${{ inputs.label }})'
     runs-on: ${{ inputs.runner }}
-
     steps:
       - name: 'Setup: Harden Runner'
         uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
@@ -82,11 +81,11 @@ jobs:
       - name: 'Artifact: Hashes'
         env:
           # prettier-ignore
-          SHA1SUM_TOOL: "${{ startsWith(inputs.runner, 'macos') && 'gsha1sum' || 'sha1sum' }}"
+          SHA1SUM_TOOL: "${{ startsWith(inputs.runner, 'macos') && 'shasum -a 1' || 'sha1sum' }}"
           # prettier-ignore
-          SHA256SUM_TOOL: "${{ startsWith(inputs.runner, 'macos') && 'gsha256sum' || 'sha256sum' }}"
+          SHA256SUM_TOOL: "${{ startsWith(inputs.runner, 'macos') && 'shasum -a 256' || 'sha256sum' }}"
           # prettier-ignore
-          SHA512SUM_TOOL: "${{ startsWith(inputs.runner, 'macos') && 'gsha512sum' || 'sha512sum' }}"
+          SHA512SUM_TOOL: "${{ startsWith(inputs.runner, 'macos') && 'shasum -a 512' || 'sha512sum' }}"
         run: |
           cp -fv bin/hashlock hashlock.${{ inputs.tag }}
           $SHA1SUM_TOOL hashlock.${{ inputs.tag }} | tee hashlock.${{ inputs.tag }}.sha1

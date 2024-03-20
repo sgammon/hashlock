@@ -17,6 +17,10 @@ jobs:
   build-native:
     name: 'Build & Test'
     uses: ./.github/workflows/ci.native-builds.yml
+    permissions:
+      actions: read
+      contents: write
+      id-token: write
     with:
       artifact-prefix: hashlock-pr${{ github.event.number }}
 

@@ -1,4 +1,4 @@
-# Verify Hashes Action
+# `hashlock`
 
 [![CI](https://github.com/sgammon/verify-hashes/actions/workflows/on.push.yml/badge.svg)](https://github.com/sgammon/verify-hashes/actions/workflows/on.push.yml)
 [![Check: Dist](https://github.com/sgammon/verify-hashes/actions/workflows/check.dist.yml/badge.svg)](https://github.com/sgammon/verify-hashes/actions/workflows/check.dist.yml)
@@ -7,16 +7,81 @@
 
 ---
 
-> A very simple action:
+> Use it as a CLI to check hash files like `something.txt.sha256`:
 
 ```shell
-find . -name "<filename>.{md5,sha,sha1,sha256,sha512} -exec \
-  # (verify <filenames> within <hashfile>)
+hashlock check .
+```
+
+> Or to generate hash lock files:
+
+```shell
+hashlock -a sha256 generate something.txt
+# equivalent to `sha256sum something.txt > something.txt.sha256`
+```
+
+> Or, use it as a GitHub Action:
+
+```yaml
+- name: 'Check: Hashes'
+  uses: sgammon/verify-hashes@v1
+```
+
+> Or, use it as a library, from TypeScript or JavaScript:
+
+```
+{
+  "devDependencies": {
+    "hashlocks": "..."
+  }
+}
+```
+
+```javascript
+import { checkHashes } from 'hashlocks'
 ```
 
 ---
 
-## Getting Started
+## Usage: CLI
+
+This package is also usable as a command line tool, under the name `hashlock`.
+The CLI is distributed on
+[NPM as a JavaScript package](https://www.npmjs.com/package/hashlock), as well
+as here, [on GitHub](https://github.com/sgammon/verify-hashes/releases), as a
+[standalone executable built by Bun](https://bun.sh/docs/bundler/executables).
+
+> [!NOTE] The CLI does not support Windows yet. Once
+> [Bun](https://github.com/oven-sh/bun/issues/43) can ship a standalone Windows
+> executable, this project will shortly follow.
+
+### Installing the CLI
+
+```
+npm install -g hashlock
+yarn install -g hashlock
+pnpm install -g hashlock
+bun install -g hashlock
+```
+
+### Using the CLI
+
+```
+hashlock --help
+```
+
+### Quick runs without installing
+
+```
+npx hashlock ...
+yarnpkg hashlock ...
+pnpm dlx hashlock ...
+bun x hashlock ...
+```
+
+---
+
+## Usage: Actions
 
 ```yaml
 - name: 'Check: Hashes'
@@ -49,7 +114,7 @@ hi
 This action will detect `something.txt.sha256`, find `something.txt`, hash it
 according to SHA-256, and make sure the two match.
 
-## Usage
+### Inputs
 
 | Input                   | Description                                      | Default         |
 | ----------------------- | ------------------------------------------------ | --------------- |
@@ -71,9 +136,9 @@ according to SHA-256, and make sure the two match.
 
 - There were no hash files found under any `paths`, or all of them were ignored
 
-## Examples
+### Examples
 
-### Fail if hash files are not found
+#### Fail if hash files are not found
 
 Strict mode will fail if hash files are not found or all of them are ignored:
 
@@ -84,7 +149,7 @@ Strict mode will fail if hash files are not found or all of them are ignored:
     strict: true
 ```
 
-### Verify a specific set of hash files
+#### Verify a specific set of hash files
 
 Turn off globs to do that. Multi-line values are accepted for `paths`:
 
@@ -97,11 +162,11 @@ Turn off globs to do that. Multi-line values are accepted for `paths`:
       some/cool/hashfile.txt.sha256
 ```
 
-## Behavior
+### Behavior
 
 This section describes in detail how the action behaves.
 
-### Paths
+#### Paths
 
 By default, `paths` and `ignored` are treated as globs. Entries in `ignored` are
 actually just globbed against each algorithm, same as `paths`, but with `!`
@@ -122,7 +187,7 @@ hello/**/*.{md5,sha,sha1,sha256,sha512}
 !goodbye
 ```
 
-#### Literal paths mode
+##### Literal paths mode
 
 When you pass `globs: false`, the `paths` entries become regular literal paths:
 
@@ -138,7 +203,22 @@ When you pass `globs: false`, the `paths` entries become regular literal paths:
 
 The effective paths are:
 
-```
+```text
 hello.sha256
 djkhaledanotherone.sha256
 ```
+
+---
+
+## Usage: Library
+
+This package is also usable as a JavaScript or TypeScript library. Simply
+install `hashlocks` and you should have the main code + typings. The package
+ships with source maps as well.
+
+---
+
+## Dependency Security
+
+SLSA, Sigstore provenance, and SPDX are all supported by this package. All
+release artifacts are shipped with provenance metadata.
