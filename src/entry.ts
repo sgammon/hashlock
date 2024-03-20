@@ -11,10 +11,7 @@
  *  License for the specific language governing permissions and limitations under the License.
  */
 
-/**
- * The entrypoint for a GitHub Action.
- */
-import { run } from './action-entry'
+import { entrypoint } from './cli'
 
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
-run()
+// Run the CLI tool.
+entrypoint()

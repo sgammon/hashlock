@@ -1,4 +1,16 @@
-import { core } from './github'
+/*
+ * Copyright (c) 2024 Elide Technologies, Inc.
+ *
+ * Licensed under the MIT license (the "License"); you may not use this file except in compliance
+ *  with the License. You may obtain a copy of the License at
+ *
+ *     https://opensource.org/license/mit/
+ *
+ *  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ *  an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ *  License for the specific language governing permissions and limitations under the License.
+ */
+
 import { VerifyHashFileInfo, VerifyFailedInfo } from './model'
 
 /**
@@ -71,17 +83,30 @@ export interface HashVerifierLogger {
   setFailed(message: Error | string): void
 }
 
-export function createLogger(): HashVerifierLogger {
+/**
+ * Create a default logger which uses the console
+ *
+ * @returns Default hash verifier logger
+ */
+export function createDefaultLogger(): HashVerifierLogger {
   return {
-    debug: (message: string) => core.debug(message),
-    info: (message: string) => core.info(message),
-    warning: (message: string) => core.warning(message),
-    error: (message: string) => core.error(message),
-    setFailed: (message: string) => core.setFailed(message)
+    debug: (message: string) => console.debug(message),
+    info: (message: string) => console.info(message),
+    warning: (message: string) => console.warn(message),
+    error: (message: string) => console.error(message),
+    setFailed: (message: string) => {
+      console.error(message)
+      process.exit(1)
+    }
   }
 }
 
-export function createReporter(): HashVerifierResultsReceiver {
+/**
+ * Create a default hash verifier results receiver which logs results.
+ *
+ * @returns Default hash verifier results receiver
+ */
+export function createDefaultReporter(): HashVerifierResultsReceiver {
   return {
     eligible: () => {
       /* nothing at this time @TODO */
@@ -91,7 +116,7 @@ export function createReporter(): HashVerifierResultsReceiver {
     },
     failure: (result: VerifyFailedInfo) => {
       /* c8 ignore next */
-      core.error(`Hash check failed: ${result.reason}; ${result.message}`)
+      console.error(`Hash check failed: ${result.reason}; ${result.message}`)
       /* c8 ignore next */
     }
   }

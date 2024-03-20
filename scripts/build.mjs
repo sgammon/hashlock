@@ -11,10 +11,14 @@
  *  License for the specific language governing permissions and limitations under the License.
  */
 
-/**
- * The entrypoint for a GitHub Action.
- */
-import { run } from './action-entry'
+import cliBuild from './build-cli.mjs'
+import actionBuild from './build-action.mjs'
 
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
-run()
+async function buildAllTargets() {
+  const cli = cliBuild()
+  const action = actionBuild()
+  await Promise.all([cli, action])
+}
+
+console.info("Building 'verify-hashes'...")
+await buildAllTargets()

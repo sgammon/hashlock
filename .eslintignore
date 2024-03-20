@@ -4,3 +4,4 @@ node_modules/
 coverage/
 __tests__
 src/model.ts
+src/entry.ts

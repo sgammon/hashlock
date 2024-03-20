@@ -20,10 +20,6 @@ inputs:
     required: false
     default: |
       node_modules/
-  follow-symbolic-links:
-    description: 'Follow Symbolic Links'
-    required: false
-    default: 'false'
   globs:
     description: 'Paths are Globs'
     required: false
@@ -33,6 +29,14 @@ inputs:
     required: false
     default: 'false'
 
+outputs:
+  files-checked-count:
+    description: 'Count of hash files which were checked by the action'
+  files-verified-count:
+    description: 'Count of hash files which were verified'
+  files-failed-count:
+    description: 'Count of hash files which failed checks'
+
 runs:
   using: node20
-  main: dist/index.js
+  main: dist/action.js
