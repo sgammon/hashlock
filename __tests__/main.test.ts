@@ -1,3 +1,16 @@
+/*
+ * Copyright (c) 2024 Elide Technologies, Inc.
+ *
+ * Licensed under the MIT license (the "License"); you may not use this file except in compliance
+ *  with the License. You may obtain a copy of the License at
+ *
+ *     https://opensource.org/license/mit/
+ *
+ *  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ *  an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ *  License for the specific language governing permissions and limitations under the License.
+ */
+
 import { throws } from 'node:assert'
 import { readFile } from 'node:fs/promises'
 import { join, resolve, normalize } from 'node:path'
@@ -11,6 +24,7 @@ import * as core from '@actions/core'
 import * as main from '../src/main'
 
 // Mock the GitHub Actions core library
+let consoleDebugMock: jest.SpiedFunction<typeof console.debug>
 let debugMock: jest.SpiedFunction<typeof core.debug>
 let errorMock: jest.SpiedFunction<typeof core.error>
 let getInputMock: jest.SpiedFunction<typeof core.getInput>
@@ -29,16 +43,19 @@ async function readMockDataRaw(file: string): Promise<Buffer> {
   return readFile(mockFilePath(file))
 }
 
-describe('main', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
+function resetMocks() {
+  jest.clearAllMocks()
 
-    debugMock = jest.spyOn(core, 'debug').mockImplementation()
-    errorMock = jest.spyOn(core, 'error').mockImplementation()
-    getInputMock = jest.spyOn(core, 'getInput').mockImplementation()
-    setFailedMock = jest.spyOn(core, 'setFailed').mockImplementation()
-    setOutputMock = jest.spyOn(core, 'setOutput').mockImplementation()
-  })
+  consoleDebugMock = jest.spyOn(console, 'debug').mockImplementation()
+  debugMock = jest.spyOn(core, 'debug').mockImplementation()
+  errorMock = jest.spyOn(core, 'error').mockImplementation()
+  getInputMock = jest.spyOn(core, 'getInput').mockImplementation()
+  setFailedMock = jest.spyOn(core, 'setFailed').mockImplementation()
+  setOutputMock = jest.spyOn(core, 'setOutput').mockImplementation()
+}
+
+describe('main', () => {
+  beforeEach(() => resetMocks())
 
   it('can guess the algorithm from the filename', () => {
     expect(main.detectAlgorithm('subject.md5')).toBe(HashAlgorithm.MD5)
@@ -135,7 +152,7 @@ describe('main', () => {
       hashfile: 'subject.txt.md5'
     }
 
-    const result = main.compareHashWithSubject(hashFile, fileContent)
+    const result = await main.compareHashWithSubject(hashFile, fileContent)
     expect(result.file).toBe(mockFilePath('subject.txt'))
     expect(result.valid).toBe(true)
     if (result.valid && !result.err) {
@@ -143,9 +160,9 @@ describe('main', () => {
       expect(result.encoding).toBe(HashEncoding.HEX)
       expect(result.peer).toBe('subject.txt')
     }
-    expect(main.compareHashWithSubject(hashMismatch, fileContent).valid).toBe(
-      false
-    )
+    expect(
+      (await main.compareHashWithSubject(hashMismatch, fileContent)).valid
+    ).toBe(false)
   })
 
   it('can properly compare two hashes (binary)', async () => {
@@ -168,7 +185,7 @@ describe('main', () => {
       hashfile: 'subject.txt.sha256'
     }
 
-    const result = main.compareHashWithSubject(hashFile, fileContent)
+    const result = await main.compareHashWithSubject(hashFile, fileContent)
     expect(result.valid).toBe(true)
     expect(result.err).toBe(false)
     expect(result.file).toBe(mockFilePath('sample.bin'))
@@ -177,9 +194,9 @@ describe('main', () => {
       expect(result.encoding).toBe(HashEncoding.HEX)
       expect(result.peer).toBe('sample.bin')
     }
-    expect(main.compareHashWithSubject(hashMismatch, fileContent).valid).toBe(
-      false
-    )
+    expect(
+      (await main.compareHashWithSubject(hashMismatch, fileContent)).valid
+    ).toBe(false)
   })
 
   it('can read multiple hashes from multi-hash files', async () => {

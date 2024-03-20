@@ -1,10 +1,23 @@
-import * as core from '@actions/core'
-import * as glob from '@actions/glob'
+/*
+ * Copyright (c) 2024 Elide Technologies, Inc.
+ *
+ * Licensed under the MIT license (the "License"); you may not use this file except in compliance
+ *  with the License. You may obtain a copy of the License at
+ *
+ *     https://opensource.org/license/mit/
+ *
+ *  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ *  an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ *  License for the specific language governing permissions and limitations under the License.
+ */
+
+import { core } from '../src/github'
 import * as main from '../src/action-entry'
 import { HashAlgorithm, HashEncoding } from '../src/model'
 
 // Mock the action's entrypoint
 const originalEntry = main.run
+let consoleDebugMock: jest.SpiedFunction<typeof console.debug>
 let runMock = jest.spyOn(main, 'run').mockImplementation()
 let debugMock: jest.SpiedFunction<typeof core.debug>
 let infoMock: jest.SpiedFunction<typeof core.info>
@@ -12,20 +25,21 @@ let warningMock: jest.SpiedFunction<typeof core.warning>
 let errorMock: jest.SpiedFunction<typeof core.error>
 let getInputMock: jest.SpiedFunction<typeof core.getInput>
 let setFailedMock: jest.SpiedFunction<typeof core.setFailed>
-// let globMock: jest.SpiedFunction<typeof glob.create>
+
+function resetMocks() {
+  jest.clearAllMocks()
+  consoleDebugMock = jest.spyOn(console, 'debug').mockImplementation()
+  runMock = jest.spyOn(main, 'run').mockImplementation()
+  debugMock = jest.spyOn(core, 'debug').mockImplementation()
+  infoMock = jest.spyOn(core, 'info').mockImplementation()
+  warningMock = jest.spyOn(core, 'warning').mockImplementation()
+  errorMock = jest.spyOn(core, 'error').mockImplementation()
+  setFailedMock = jest.spyOn(core, 'setFailed').mockImplementation()
+  getInputMock = jest.spyOn(core, 'getInput').mockImplementation()
+}
 
 describe('action', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-    runMock = jest.spyOn(main, 'run').mockImplementation()
-    debugMock = jest.spyOn(core, 'debug').mockImplementation()
-    infoMock = jest.spyOn(core, 'info').mockImplementation()
-    warningMock = jest.spyOn(core, 'warning').mockImplementation()
-    errorMock = jest.spyOn(core, 'error').mockImplementation()
-    setFailedMock = jest.spyOn(core, 'setFailed').mockImplementation()
-    getInputMock = jest.spyOn(core, 'getInput').mockImplementation()
-    // globMock = jest.spyOn(glob, 'create').mockImplementation()
-  })
+  beforeEach(() => resetMocks())
 
   it('calls run when imported', async () => {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -75,7 +89,7 @@ describe('action', () => {
     const results = await originalEntry()
     expect(results.errors).toHaveLength(0) // keep in sync with expectations on project
     expect(results.failedVerifications).toHaveLength(7)
-    expect(results.verifiedFiles).toHaveLength(16)
+    expect(results.verifiedFiles).toHaveLength(24)
   }, 30000)
 
   it('should act on regular paths if told not to glob', async () => {

@@ -11,10 +11,18 @@
  *  License for the specific language governing permissions and limitations under the License.
  */
 
-/**
- * The entrypoint for a GitHub Action.
- */
-import { run } from './action-entry'
+export const common = {
+  bundle: true,
+  drop: ['console', 'debugger'],
+  format: 'cjs',
+  legalComments: 'external',
+  metafile: true,
+  minify: true,
+  platform: 'node',
+  sourcemap: 'external',
+  sourceRoot: 'https://raw.githubusercontent.com/sgammon/verify-hashes/main/',
+  target: ['es2022', 'node20'],
+  treeShaking: true
+}
 
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
-run()
+export default common

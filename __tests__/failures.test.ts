@@ -8,6 +8,11 @@ import checkHashes, {
   detectEncodingForHash
 } from '../src/main'
 
+import {
+  createGithubActionsLogger,
+  createGithubActionsReporter
+} from '../src/github'
+
 // Mock the GitHub Actions core library
 let debugMock: jest.SpiedFunction<typeof core.debug>
 let errorMock: jest.SpiedFunction<typeof core.error>
@@ -34,7 +39,8 @@ describe('failures', () => {
       true,
       [],
       true,
-      true
+      createGithubActionsReporter(),
+      createGithubActionsLogger()
     )
     expect(errorMock).toHaveBeenCalledTimes(1)
     expect(errorMock).toHaveBeenCalledWith('No hash files to verify.')
@@ -46,7 +52,8 @@ describe('failures', () => {
       false,
       [],
       true,
-      true
+      createGithubActionsReporter(),
+      createGithubActionsLogger()
     )
     expect(infoMock).toHaveBeenCalledTimes(1)
     expect(infoMock).toHaveBeenCalledWith('No hash files to verify.')

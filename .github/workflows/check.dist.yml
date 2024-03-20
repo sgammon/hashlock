@@ -37,7 +37,7 @@ jobs:
             - args: [--frozen-lockfile, --strict-peer-dependencies]
       - name: 'Build: Dist'
         id: build
-        run: pnpm run bundle
+        run: pnpm run build
       - name: 'Check: Compare Directories'
         id: diff
         run: |

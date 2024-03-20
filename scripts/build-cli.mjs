@@ -11,10 +11,16 @@
  *  License for the specific language governing permissions and limitations under the License.
  */
 
-/**
- * The entrypoint for a GitHub Action.
- */
-import { run } from './action-entry'
+import common from './build-common.mjs'
+import * as esbuild from 'esbuild'
 
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
-run()
+const buildSettings = {
+  ...common,
+  entryPoints: ['src/entry.ts'],
+  outfile: 'dist/cli.js'
+}
+
+export default async function buildCli() {
+  console.info("- Building 'verify-hashes' (CLI)...")
+  await esbuild.build(buildSettings)
+}

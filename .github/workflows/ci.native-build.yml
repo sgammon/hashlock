@@ -1,0 +1,128 @@
+name: 'Native Build'
+
+on:
+  workflow_call:
+    inputs:
+      label:
+        description: 'Label'
+        type: string
+        required: true
+      runner:
+        description: 'Runner'
+        type: string
+        required: true
+      tag:
+        description: 'Tag'
+        type: string
+        required: true
+      artifact:
+        description: 'Artifact'
+        type: string
+        required: true
+      retention-days:
+        description: 'Artifact Retention'
+        type: number
+        default: 7
+
+  workflow_dispatch:
+    inputs:
+      label:
+        description: 'Label'
+        type: string
+        default: 'Linux x86-64'
+      runner:
+        description: 'Runner'
+        type: string
+        required: true
+        default: 'ubuntu-latest'
+      artifact:
+        description: 'Artifact'
+        type: string
+        required: true
+      retention-days:
+        description: 'Artifact Retention'
+        type: number
+        default: 7
+
+permissions:
+  contents: read
+
+jobs:
+  native-build:
+    name: 'Build: Native (${{ inputs.label }})'
+    runs-on: ${{ inputs.runner }}
+
+    steps:
+      - name: 'Setup: Harden Runner'
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
+      - name: 'Setup: Checkout'
+        id: checkout
+        uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
+        with:
+          persist-credentials: false
+      - name: 'Setup: Node'
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        with:
+          node-version-file: .node-version
+      - name: 'Setup: Bun'
+        uses: oven-sh/setup-bun@d3603274aca5625baad52ec06108517a089cdd00 # v1.2.0
+        with:
+          bun-version: latest
+      - name: 'Setup: PNPM'
+        uses: pnpm/action-setup@a3252b78c470c02df07e9d59298aecedc3ccdd6d # v3.0.0
+        with:
+          version: '8.15.3'
+          run_install: |
+            - args: [--frozen-lockfile, --strict-peer-dependencies]
+      - name: 'Build: Bundle'
+        id: build-bundle
+        run: bun --bun run build
+      - name: 'Artifact: Hashes'
+        env:
+          # prettier-ignore
+          SHA1SUM_TOOL: "${{ startsWith(inputs.runner, 'macos') && 'gsha1sum' || 'sha1sum' }}"
+          # prettier-ignore
+          SHA256SUM_TOOL: "${{ startsWith(inputs.runner, 'macos') && 'gsha256sum' || 'sha256sum' }}"
+          # prettier-ignore
+          SHA512SUM_TOOL: "${{ startsWith(inputs.runner, 'macos') && 'gsha512sum' || 'sha512sum' }}"
+        run: |
+          cp -fv bin/hashlock hashlock.${{ inputs.tag }}
+          $SHA1SUM_TOOL hashlock.${{ inputs.tag }} | tee hashlock.${{ inputs.tag }}.sha1
+          $SHA256SUM_TOOL hashlock.${{ inputs.tag }} | tee hashlock.${{ inputs.tag }}.sha256
+          $SHA512SUM_TOOL hashlock.${{ inputs.tag }} | tee hashlock.${{ inputs.tag }}.sha512
+      - name: 'Artifact: Executable'
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
+        with:
+          name: ${{ inputs.artifact }}
+          retention-days: ${{ inputs.retention-days }}
+          compression-level: 4
+          overwrite: true
+          path: |
+            hashlock.${{ inputs.tag }}
+            hashlock.${{ inputs.tag }}.sha1
+            hashlock.${{ inputs.tag }}.sha256
+            hashlock.${{ inputs.tag }}.sha512
+
+  smoke-test:
+    name: 'Tests: Smoke Test (${{ inputs.label }})'
+    runs-on: ${{ inputs.runner }}
+    needs: [native-build]
+
+    steps:
+      - name: 'Setup: Harden Runner'
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
+      - name: 'Download: Artifacts'
+        uses: actions/download-artifact@c850b930e6ba138125429b7e5c93fc707a7f8427 # v4.1.4
+        with:
+          name: ${{ inputs.artifact }}
+      - name: 'Check: Hashes'
+        run: |
+          file hashlock.${{ inputs.tag }}
+          du -h hashlock.${{ inputs.tag }}
+          chmod +x hashlock.${{ inputs.tag }}
+          ./hashlock.${{ inputs.tag }} --help
+          ./hashlock.${{ inputs.tag }} check . --strict
