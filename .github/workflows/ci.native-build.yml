@@ -23,6 +23,18 @@ on:
         description: 'Artifact Retention'
         type: number
         default: 7
+      package-publish:
+        description: 'Publish: Package'
+        type: boolean
+        default: false
+      publish-dry:
+        description: 'Publish: Dry-run'
+        type: boolean
+        default: true
+    secrets:
+      PUBLISH_TOKEN:
+        description: 'Publishing Token'
+        required: false
 
   workflow_dispatch:
     inputs:
@@ -43,6 +55,14 @@ on:
         description: 'Artifact Retention'
         type: number
         default: 7
+      package-publish:
+        description: 'Publish: Package'
+        type: boolean
+        default: false
+      publish-dry:
+        description: 'Publish: Dry-run'
+        type: boolean
+        default: true
 
 permissions:
   contents: read
@@ -78,6 +98,8 @@ jobs:
       - name: 'Build: Bundle'
         id: build-bundle
         run: bun --bun run build
+      - name: 'Build: Package'
+        run: bun packaging/builder.ts
       - name: 'Artifact: Hashes'
         env:
           # prettier-ignore
@@ -91,6 +113,41 @@ jobs:
           $SHA1SUM_TOOL hashlock.${{ inputs.tag }} | tee hashlock.${{ inputs.tag }}.sha1
           $SHA256SUM_TOOL hashlock.${{ inputs.tag }} | tee hashlock.${{ inputs.tag }}.sha256
           $SHA512SUM_TOOL hashlock.${{ inputs.tag }} | tee hashlock.${{ inputs.tag }}.sha512
+      - name: 'Build: Archives'
+        run: |
+          echo "Building archives..."
+          mkdir hashlock-${{ inputs.tag }}
+          cp -fv bin/hashlock hashlock-${{ inputs.tag }}/hashlock
+          cp -fv hashlock.${{ inputs.tag }}.sha1 hashlock-${{ inputs.tag }}/
+          cp -fv hashlock.${{ inputs.tag }}.sha256 hashlock-${{ inputs.tag }}/
+          cp -fv hashlock.${{ inputs.tag }}.sha512 hashlock-${{ inputs.tag }}/
+
+          echo ""
+          echo "Building tarball..."
+          tar -cvf hashlock-${{ inputs.tag }}.tar hashlock-${{ inputs.tag }}/*
+          gzip -v --best hashlock-${{ inputs.tag }}.tar
+          mv -fv hashlock-${{ inputs.tag }}.tar.gz hashlock-${{ inputs.tag }}.tgz
+          rm -fv hashlock-${{ inputs.tag }}.tar
+          echo ""
+          echo "Building zip..."
+          zip -9 -v -r hashlock-${{ inputs.tag }}.zip hashlock-${{ inputs.tag }}/*
+          echo ""
+          echo "Building xz..."
+          tar -cvf - hashlock-${{ inputs.tag }}/ | xz -9 -v -z - > hashlock-${{ inputs.tag }}.txz
+
+          mkdir -p hashlock-${{ inputs.tag }}-archives
+          mv -fv hashlock-${{ inputs.tag }}.tgz hashlock-${{ inputs.tag }}.zip hashlock-${{ inputs.tag }}.txz hashlock-${{ inputs.tag }}-archives/
+
+          cd hashlock-${{ inputs.tag }}-archives
+          echo ""
+          echo "Generating hashes for archives..."
+          du -h ./*
+          for f in ./*; do sha256sum $f | tee $f.sha256; done
+          for f in ./*; do sha512sum $f | tee $f.sha512; done
+          cd ..
+          echo "Cleaning up..."
+          rm -frv hashlock-${{ inputs.tag }} hashlock-${{ inputs.tag }}.tgz hashlock-${{ inputs.tag }}.zip hashlock-${{ inputs.tag }}.txz
+          echo "Done."
       - name: 'Artifact: Executable'
         uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
         with:
@@ -103,6 +160,23 @@ jobs:
             hashlock.${{ inputs.tag }}.sha1
             hashlock.${{ inputs.tag }}.sha256
             hashlock.${{ inputs.tag }}.sha512
+      - name: 'Artifact: Archives'
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
+        with:
+          name: ${{ inputs.artifact }}-archives
+          retention-days: ${{ inputs.retention-days }}
+          compression-level: 0
+          overwrite: true
+          path: |
+            hashlock-${{ inputs.tag }}-archives/hashlock-${{ inputs.tag }}.tgz
+            hashlock-${{ inputs.tag }}-archives/hashlock-${{ inputs.tag }}.tgz.sha256
+            hashlock-${{ inputs.tag }}-archives/hashlock-${{ inputs.tag }}.tgz.sha512
+            hashlock-${{ inputs.tag }}-archives/hashlock-${{ inputs.tag }}.zip
+            hashlock-${{ inputs.tag }}-archives/hashlock-${{ inputs.tag }}.zip.sha256
+            hashlock-${{ inputs.tag }}-archives/hashlock-${{ inputs.tag }}.zip.sha512
+            hashlock-${{ inputs.tag }}-archives/hashlock-${{ inputs.tag }}.txz
+            hashlock-${{ inputs.tag }}-archives/hashlock-${{ inputs.tag }}.txz.sha256
+            hashlock-${{ inputs.tag }}-archives/hashlock-${{ inputs.tag }}.txz.sha512
 
   smoke-test:
     name: 'Tests: Smoke Test (${{ inputs.label }})'
@@ -125,3 +199,44 @@ jobs:
           chmod +x hashlock.${{ inputs.tag }}
           ./hashlock.${{ inputs.tag }} --help
           ./hashlock.${{ inputs.tag }} check . --strict
+
+  package-publish:
+    name: 'Publish: Native (${{ inputs.label }})'
+    if: inputs.package-publish
+    runs-on: ${{ inputs.runner }}
+    needs: [native-build, smoke-test]
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: 'Setup: Harden Runner'
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
+      - name: 'Setup: Checkout'
+        id: checkout
+        uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
+        with:
+          persist-credentials: false
+      - name: 'Setup: Node'
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        with:
+          node-version-file: .node-version
+      - name: 'Setup: Bun'
+        uses: oven-sh/setup-bun@d3603274aca5625baad52ec06108517a089cdd00 # v1.2.0
+        with:
+          bun-version: latest
+      - name: 'Setup: PNPM'
+        uses: pnpm/action-setup@a3252b78c470c02df07e9d59298aecedc3ccdd6d # v3.0.0
+        with:
+          version: '8.15.3'
+          run_install: |
+            - args: [--frozen-lockfile, --strict-peer-dependencies]
+      - name: 'Build: Package'
+        run: bun packaging/builder.ts
+        env:
+          ENABLE_PROVENANCE: 'true'
+          PUBLISH_REGISTRY: 'https://registry.npmjs.org/'
+          PUBLISH_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
+          PUBLISH_LIVE_UNLOCK_GATE:
+            ${{ inputs.publish-dry && 'false' || 'true' }}

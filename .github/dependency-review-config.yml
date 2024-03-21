@@ -13,6 +13,5 @@
 
 license-check: true
 vulnerability-check: true
-fail-on-severity: 'high'
-
+fail-on-severity: 'low'
 allow-ghsas: []

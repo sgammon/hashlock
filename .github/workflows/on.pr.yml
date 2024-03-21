@@ -35,6 +35,10 @@ jobs:
       contents: read
       security-events: write
 
+  check-fmt:
+    name: 'Checks'
+    uses: ./.github/workflows/check.format.yml
+
   check-dependencies:
     name: 'Checks'
     uses: ./.github/workflows/check.dependency-review.yml

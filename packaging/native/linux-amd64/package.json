@@ -1,0 +1,13 @@
+{
+  "name": "@hashlock/hashlock-linux-amd64",
+  "version": "$(version)",
+  "description": "The Linux x86 binary for hashlock",
+  "license": "MIT",
+  "os": [
+    "linux"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "preferUnplugged": true
+}

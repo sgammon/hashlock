@@ -11,16 +11,7 @@
  *  License for the specific language governing permissions and limitations under the License.
  */
 
-import libBuild from './build-lib.mjs'
-import cliBuild from './build-cli.mjs'
-import actionBuild from './build-action.mjs'
-
-async function buildAllTargets() {
-  const lib = libBuild()
-  const cli = cliBuild()
-  const action = actionBuild()
-  await Promise.all([lib, cli, action])
+module.exports = {
+  platform: 'darwin-amd64',
+  bin: require.resolve('@hashlock/hashlock-darwin-amd64/bin/hashlock'),
 }
-
-console.info("Building 'verify-hashes'...")
-await buildAllTargets()

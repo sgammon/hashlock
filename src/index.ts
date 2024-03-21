@@ -11,16 +11,9 @@
  *  License for the specific language governing permissions and limitations under the License.
  */
 
-import libBuild from './build-lib.mjs'
-import cliBuild from './build-cli.mjs'
-import actionBuild from './build-action.mjs'
+import checkHashes from './main'
+export * as generator from './generator'
+export * as model from './model'
 
-async function buildAllTargets() {
-  const lib = libBuild()
-  const cli = cliBuild()
-  const action = actionBuild()
-  await Promise.all([lib, cli, action])
-}
-
-console.info("Building 'verify-hashes'...")
-await buildAllTargets()
+export { checkHashes }
+export default checkHashes

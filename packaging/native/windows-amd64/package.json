@@ -1,0 +1,13 @@
+{
+  "name": "@hashlock/hashlock-windows-amd64",
+  "version": "$(version)",
+  "description": "The Windows x86 binary for hashlock",
+  "license": "MIT",
+  "os": [
+    "windows"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "preferUnplugged": true
+}

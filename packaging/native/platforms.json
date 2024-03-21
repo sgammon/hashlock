@@ -1,0 +1,7 @@
+[
+  { "tag": "darwin-arm64", "os": "darwin", "arch": "arm64", "enabled": true },
+  { "tag": "darwin-amd64", "os": "darwin", "arch": "amd64", "enabled": true },
+  { "tag": "linux-amd64", "os": "linux", "arch": "amd64", "enabled": true },
+  { "tag": "linux-arm64", "os": "linux", "arch": "arm64", "enabled": false },
+  { "tag": "windows-amd64", "os": "windows", "arch": "amd64", "enabled": false }
+]

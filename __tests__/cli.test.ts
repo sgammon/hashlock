@@ -211,12 +211,12 @@ describe('cli', () => {
 
   it('entrypoint explicit check default run should not fail', () => {
     entryMock.mockRestore()
-    cli.entrypoint([...process.argv, 'generate'])
+    cli.entrypoint([...process.argv, 'generate', './package.json'])
   })
 
   it('entrypoint explicit check default run should not fail', () => {
     entryMock.mockRestore()
-    cli.entrypoint([...process.argv, 'freshen'])
+    cli.entrypoint([...process.argv, 'freshen', './package.json.sha256'])
   })
 
   it('`checkAction` default run should not fail', async () => {

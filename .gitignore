@@ -1,6 +1,11 @@
 # Dependency directory
 node_modules
 
+dist/cli.*
+dist/*.d.ts
+dist/*.*
+!dist/*action*
+
 # Rest pulled from https://github.com/github/gitignore/blob/master/Node.gitignore
 # Logs
 logs

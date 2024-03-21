@@ -1,20 +1,23 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
+  "include": ["./src/**/*"],
   "compilerOptions": {
     "target": "esnext",
     "module": "NodeNext",
-    "rootDir": "./src",
+    "rootDir": ".",
     "moduleResolution": "NodeNext",
-    "baseUrl": "./",
+    "baseUrl": ".",
     "sourceMap": true,
     "outDir": "./dist",
     "noImplicitAny": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
     "strict": true,
     "skipLibCheck": true,
     "newLine": "lf",
-    "declaration": true
+    "declaration": true,
+    "emitDeclarationOnly": true
   },
   "exclude": ["./dist", "./node_modules", "./__tests__", "./coverage"]
 }
