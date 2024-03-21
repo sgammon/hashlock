@@ -51,9 +51,9 @@ The CLI is distributed on
 as here, [on GitHub](https://github.com/sgammon/hashlock/releases), as a
 [standalone executable built by Bun](https://bun.sh/docs/bundler/executables).
 
-> [!NOTE]
-> The CLI does not support Windows yet. Once [Bun](https://github.com/oven-sh/bun/issues/43) ships
-> support for standalone Windows executables, this project will follow suit.
+> [!NOTE] The CLI does not support Windows yet. Once
+> [Bun](https://github.com/oven-sh/bun/issues/43) ships support for standalone
+> Windows executables, this project will follow suit.
 
 ### Installing the CLI
 
