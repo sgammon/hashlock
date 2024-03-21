@@ -1,8 +1,8 @@
 # `hashlock`
 
-[![CI](https://github.com/sgammon/verify-hashes/actions/workflows/on.push.yml/badge.svg)](https://github.com/sgammon/verify-hashes/actions/workflows/on.push.yml)
-[![Check: Dist](https://github.com/sgammon/verify-hashes/actions/workflows/check.dist.yml/badge.svg)](https://github.com/sgammon/verify-hashes/actions/workflows/check.dist.yml)
-[![Check: CodeQL](https://github.com/sgammon/verify-hashes/actions/workflows/check.codeql-analysis.yml/badge.svg)](https://github.com/sgammon/verify-hashes/actions/workflows/check.codeql-analysis.yml)
+[![CI](https://github.com/sgammon/hashlock/actions/workflows/on.push.yml/badge.svg)](https://github.com/sgammon/hashlock/actions/workflows/on.push.yml)
+[![Check: Dist](https://github.com/sgammon/hashlock/actions/workflows/check.dist.yml/badge.svg)](https://github.com/sgammon/hashlock/actions/workflows/check.dist.yml)
+[![Check: CodeQL](https://github.com/sgammon/hashlock/actions/workflows/check.codeql-analysis.yml/badge.svg)](https://github.com/sgammon/hashlock/actions/workflows/check.codeql-analysis.yml)
 [![Coverage](./badges/coverage.svg)](./badges/coverage.svg)
 
 ---
@@ -24,7 +24,7 @@ hashlock -a sha256 generate something.txt
 
 ```yaml
 - name: 'Check: Hashes'
-  uses: sgammon/verify-hashes@v1
+  uses: sgammon/hashlock@v1
 ```
 
 > Or, use it as a library, from TypeScript or JavaScript:
@@ -32,13 +32,13 @@ hashlock -a sha256 generate something.txt
 ```
 {
   "devDependencies": {
-    "hashlocks": "..."
+    "hashlock": "..."
   }
 }
 ```
 
 ```javascript
-import { checkHashes } from 'hashlocks'
+import { checkHashes } from 'hashlock'
 ```
 
 ---
@@ -48,12 +48,12 @@ import { checkHashes } from 'hashlocks'
 This package is also usable as a command line tool, under the name `hashlock`.
 The CLI is distributed on
 [NPM as a JavaScript package](https://www.npmjs.com/package/hashlock), as well
-as here, [on GitHub](https://github.com/sgammon/verify-hashes/releases), as a
+as here, [on GitHub](https://github.com/sgammon/hashlock/releases), as a
 [standalone executable built by Bun](https://bun.sh/docs/bundler/executables).
 
-> [!NOTE] The CLI does not support Windows yet. Once
-> [Bun](https://github.com/oven-sh/bun/issues/43) can ship a standalone Windows
-> executable, this project will shortly follow.
+> [!NOTE]
+> The CLI does not support Windows yet. Once [Bun](https://github.com/oven-sh/bun/issues/43) ships
+> support for standalone Windows executables, this project will follow suit.
 
 ### Installing the CLI
 
@@ -85,7 +85,7 @@ bun x hashlock ...
 
 ```yaml
 - name: 'Check: Hashes'
-  uses: sgammon/verify-hashes@v1
+  uses: sgammon/hashlock@v1
 ```
 
 This will check all files in your codebase that look like:
@@ -144,7 +144,7 @@ Strict mode will fail if hash files are not found or all of them are ignored:
 
 ```yaml
 - name: 'Check: Hashes'
-  uses: sgammon/verify-hashes@v1
+  uses: sgammon/hashlock@v1
   with:
     strict: true
 ```
@@ -155,7 +155,7 @@ Turn off globs to do that. Multi-line values are accepted for `paths`:
 
 ```yaml
 - name: 'Check: Hashes'
-  uses: sgammon/verify-hashes@v1
+  uses: sgammon/hashlock@v1
   with:
     globs: false
     paths: |
@@ -174,7 +174,7 @@ prepended. So, for example:
 
 ```yaml
 - name: 'Check: Hashes'
-  uses: sgammon/verify-hashes@v1
+  uses: sgammon/hashlock@v1
   with:
     paths: hello
     ignored: goodbye
@@ -193,7 +193,7 @@ When you pass `globs: false`, the `paths` entries become regular literal paths:
 
 ```yaml
 - name: 'Check: Hashes'
-  uses: sgammon/verify-hashes@v1
+  uses: sgammon/hashlock@v1
   with:
     paths: |
       hello.sha256
@@ -213,7 +213,7 @@ djkhaledanotherone.sha256
 ## Usage: Library
 
 This package is also usable as a JavaScript or TypeScript library. Simply
-install `hashlocks` and you should have the main code + typings. The package
+install `hashlock` and you should have the main code + typings. The package
 ships with source maps as well.
 
 ---
