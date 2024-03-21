@@ -38,6 +38,11 @@ on:
         type: string
         default: 'latest'
         required: false
+      environment:
+        description: 'Publish: Environment'
+        type: string
+        default: 'npm'
+        required: false
     secrets:
       PUBLISH_TOKEN:
         description: 'Publishing Token'
@@ -79,6 +84,11 @@ on:
         type: string
         default: 'latest'
         required: false
+      environment:
+        description: 'Publish: Environment'
+        type: environment
+        default: npm
+        required: false
 
 permissions:
   contents: read
@@ -91,8 +101,7 @@ jobs:
       contents: read
       id-token: write
     environment:
-      name: npm
-      url: https://www.npmjs.com/package/hashlock
+      name: ${{ inputs.environment }}
     outputs:
       lib: 'main'
       package: ${{ steps.metadata.outputs.package }}
