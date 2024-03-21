@@ -1,0 +1,119 @@
+name: 'Publish: Package'
+
+on:
+  workflow_call:
+    inputs:
+      publish-dry:
+        description: 'Publish: Dry-run'
+        type: boolean
+        default: true
+      provenance:
+        description: 'Publish: Provenance'
+        type: boolean
+        default: true
+      registry:
+        description: 'Publish: Registry'
+        type: string
+        default: 'https://registry.npmjs.org'
+      artifact:
+        description: 'Artifact: Name'
+        type: string
+        default: 'hashlock-pkg-main'
+    secrets:
+      PUBLISH_TOKEN:
+        description: "Publishing Token"
+        required: false
+
+  workflow_dispatch:
+    inputs:
+      publish-dry:
+        description: 'Publish: Dry-run'
+        type: boolean
+        default: true
+      provenance:
+        description: 'Publish: Provenance'
+        type: boolean
+        default: true
+      registry:
+        description: 'Publish: Registry'
+        type: choice
+        default: 'https://registry.npmjs.org'
+        options:
+           - 'https://registry.npmjs.org'
+           - 'https://npm.pkg.github.com'
+      artifact:
+        description: 'Artifact: Name'
+        type: string
+        default: 'hashlock-pkg-main'
+
+permissions:
+  contents: read
+
+jobs:
+  publish-package-main:
+    name: 'Publish: Main Package'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    outputs:
+      lib: 'main'
+      package: ${{ steps.metadata.outputs.package }}
+      version: ${{ steps.metadata.outputs.version }}
+      registry: ${{ steps.metadata.outputs.registry }}
+    steps:
+      - name: 'Setup: Harden Runner'
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
+      - name: 'Setup: Checkout'
+        id: checkout
+        uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
+        with:
+          persist-credentials: false
+      - name: 'Setup: Node'
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        with:
+          node-version-file: .node-version
+      - name: 'Setup: Bun'
+        uses: oven-sh/setup-bun@d3603274aca5625baad52ec06108517a089cdd00 # v1.2.0
+        with:
+          bun-version: latest
+      - name: 'Setup: PNPM'
+        uses: pnpm/action-setup@a3252b78c470c02df07e9d59298aecedc3ccdd6d # v3.0.0
+        with:
+          version: '8.15.3'
+          run_install: |
+            - args: [--frozen-lockfile, --strict-peer-dependencies]
+      - name: 'NPM: Metadata'
+        id: metadata
+        env:
+          REGISTRY: ${{ inputs.registry }}
+        run: |
+          PKG=$(cat package.json | jq .name | sed -e 's/^"//' -e 's/"$//')
+          VERSION=$(cat package.json | jq .version | sed -e 's/^"//' -e 's/"$//')
+          echo "Package: $PKG"
+          echo "Version: $VERSION"
+          echo "package=$PKG" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "registry=$REGISTRY" >> "$GITHUB_OUTPUT"
+      - name: 'Build: Bundle'
+        id: build-bundle
+        run: bun --bun run build
+      - name: 'NPM: Pack'
+        run: npm pack
+      - name: 'Artifact: Package'
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
+        with:
+          name: ${{ inputs.artifact }}
+          retention-days: 7
+          compression-level: 0
+          overwrite: true
+          path: ./*.tgz
+      - name: 'NPM: Publish'
+        run: |
+          npm publish \
+            --dry-run=${{ inputs.publish-dry }} \
+            --access=public \
+            --registry="${{ inputs.registry }}"" \
+            --provenance=${{ inputs.provenance }}

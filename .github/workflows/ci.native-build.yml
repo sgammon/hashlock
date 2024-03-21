@@ -23,6 +23,18 @@ on:
         description: 'Artifact Retention'
         type: number
         default: 7
+      package-publish:
+        description: 'Publish: Package'
+        type: boolean
+        default: false
+      publish-dry:
+        description: 'Publish: Dry-run'
+        type: boolean
+        default: true
+    secrets:
+      PUBLISH_TOKEN:
+        description: "Publishing Token"
+        required: false
 
   workflow_dispatch:
     inputs:
@@ -43,6 +55,14 @@ on:
         description: 'Artifact Retention'
         type: number
         default: 7
+      package-publish:
+        description: 'Publish: Package'
+        type: boolean
+        default: false
+      publish-dry:
+        description: 'Publish: Dry-run'
+        type: boolean
+        default: true
 
 permissions:
   contents: read
@@ -78,6 +98,8 @@ jobs:
       - name: 'Build: Bundle'
         id: build-bundle
         run: bun --bun run build
+      - name: 'Build: Package'
+        run: bun packaging/builder.ts
       - name: 'Artifact: Hashes'
         env:
           # prettier-ignore
@@ -177,3 +199,43 @@ jobs:
           chmod +x hashlock.${{ inputs.tag }}
           ./hashlock.${{ inputs.tag }} --help
           ./hashlock.${{ inputs.tag }} check . --strict
+
+  package-publish:
+    name: 'Publish: Native (${{ inputs.label }})'
+    if: inputs.package-publish
+    runs-on: ${{ inputs.runner }}
+    needs: [native-build, smoke-test]
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: 'Setup: Harden Runner'
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
+      - name: 'Setup: Checkout'
+        id: checkout
+        uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
+        with:
+          persist-credentials: false
+      - name: 'Setup: Node'
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        with:
+          node-version-file: .node-version
+      - name: 'Setup: Bun'
+        uses: oven-sh/setup-bun@d3603274aca5625baad52ec06108517a089cdd00 # v1.2.0
+        with:
+          bun-version: latest
+      - name: 'Setup: PNPM'
+        uses: pnpm/action-setup@a3252b78c470c02df07e9d59298aecedc3ccdd6d # v3.0.0
+        with:
+          version: '8.15.3'
+          run_install: |
+            - args: [--frozen-lockfile, --strict-peer-dependencies]
+      - name: 'Build: Package'
+        run: bun packaging/builder.ts
+        env:
+          ENABLE_PROVENANCE: 'true'
+          PUBLISH_REGISTRY: 'https://registry.npmjs.org/'
+          PUBLISH_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
+          PUBLISH_LIVE_UNLOCK_GATE: ${{ inputs.publish-dry && 'false' || 'true' }}

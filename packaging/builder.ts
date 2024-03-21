@@ -20,14 +20,24 @@ const enablePublish = true
 const dryRun = process.env.PUBLISH_LIVE_UNLOCK_GATE !== 'true'
 const registry = process.env.PUBLISH_REGISTRY || ''
 
+const os = process.platform
+const arch = process.arch
+console.log(`Building native package for platform '${os}-${arch}'...`)
+
+let built = false
 for (const platform of platforms) {
-  if (platform.enabled === true)
+  if (platform.enabled === true && platform.os === os && platform.arch === arch) {
+    built = true
     await build(
-      platform.os,
-      platform.arch,
+      os,
+      arch,
       enableProvenance,
       enablePublish,
       dryRun,
       registry
     )
+    break
+  }
 }
+
+if (!built) console.log('No builds enabled for platform.')
