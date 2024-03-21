@@ -162,6 +162,6 @@ jobs:
           npm publish \
             --dry-run=${{ inputs.publish-dry }} \
             --access=public \
-            --registry="${{ inputs.registry }}"" \
+            --registry="${{ inputs.registry }}" \
             --provenance=${{ inputs.provenance }} \
             --tag="${{ inputs.tag }}"
