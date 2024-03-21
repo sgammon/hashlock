@@ -21,21 +21,19 @@ const dryRun = process.env.PUBLISH_LIVE_UNLOCK_GATE !== 'true'
 const registry = process.env.PUBLISH_REGISTRY || ''
 
 const os = process.platform
-const arch = process.arch
+const arch = { x64: 'amd64', arm64: 'arm64' }[process.arch]
+if (!arch) throw new Error('unrecognized arch: ' + process.arch)
 console.log(`Building native package for platform '${os}-${arch}'...`)
 
 let built = false
 for (const platform of platforms) {
-  if (platform.enabled === true && platform.os === os && platform.arch === arch) {
+  if (
+    platform.enabled === true &&
+    platform.os === os &&
+    platform.arch === arch
+  ) {
     built = true
-    await build(
-      os,
-      arch,
-      enableProvenance,
-      enablePublish,
-      dryRun,
-      registry
-    )
+    await build(os, arch, enableProvenance, enablePublish, dryRun, registry)
     break
   }
 }

@@ -30,6 +30,10 @@ jobs:
   native-build:
     name: 'Native'
     uses: ./.github/workflows/ci.native-build.yml
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
     strategy:
       fail-fast: false
       matrix:

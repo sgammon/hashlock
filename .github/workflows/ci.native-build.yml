@@ -33,7 +33,7 @@ on:
         default: true
     secrets:
       PUBLISH_TOKEN:
-        description: "Publishing Token"
+        description: 'Publishing Token'
         required: false
 
   workflow_dispatch:
@@ -238,4 +238,5 @@ jobs:
           ENABLE_PROVENANCE: 'true'
           PUBLISH_REGISTRY: 'https://registry.npmjs.org/'
           PUBLISH_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
-          PUBLISH_LIVE_UNLOCK_GATE: ${{ inputs.publish-dry && 'false' || 'true' }}
+          PUBLISH_LIVE_UNLOCK_GATE:
+            ${{ inputs.publish-dry && 'false' || 'true' }}

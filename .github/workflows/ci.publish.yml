@@ -7,21 +7,40 @@ on:
         description: 'Publish: Dry-run'
         type: boolean
         default: true
+        required: false
       provenance:
         description: 'Publish: Provenance'
         type: boolean
         default: true
+        required: false
       registry:
         description: 'Publish: Registry'
         type: string
         default: 'https://registry.npmjs.org'
+        required: false
       artifact:
         description: 'Artifact: Name'
         type: string
         default: 'hashlock-pkg-main'
+        required: false
+      package-name:
+        description: 'Package: Name Override'
+        type: string
+        default: ''
+        required: false
+      package-version:
+        description: 'Package: Version Override'
+        type: string
+        default: ''
+        required: false
+      tag:
+        description: 'Publish: Tag'
+        type: string
+        default: 'latest'
+        required: false
     secrets:
       PUBLISH_TOKEN:
-        description: "Publishing Token"
+        description: 'Publishing Token'
         required: false
 
   workflow_dispatch:
@@ -39,12 +58,27 @@ on:
         type: choice
         default: 'https://registry.npmjs.org'
         options:
-           - 'https://registry.npmjs.org'
-           - 'https://npm.pkg.github.com'
+          - 'https://registry.npmjs.org'
+          - 'https://npm.pkg.github.com'
       artifact:
         description: 'Artifact: Name'
         type: string
         default: 'hashlock-pkg-main'
+      package-name:
+        description: 'Package: Name Override'
+        type: string
+        default: ''
+        required: false
+      package-version:
+        description: 'Package: Version Override'
+        type: string
+        default: ''
+        required: false
+      tag:
+        description: 'Publish: Tag'
+        type: string
+        default: 'latest'
+        required: false
 
 permissions:
   contents: read
@@ -85,6 +119,16 @@ jobs:
           version: '8.15.3'
           run_install: |
             - args: [--frozen-lockfile, --strict-peer-dependencies]
+      - name: 'NPM: Package Name Override'
+        if: inputs.package-name != ''
+        run: |
+          echo "Overriding package name as '${{ inputs.package-name }}':"
+          jq '.name = "${{ inputs.package-name }}"' package.json | tee package.json | jq
+      - name: 'NPM: Package Version Override'
+        if: inputs.package-version != ''
+        run: |
+          echo "Overriding package name as '${{ inputs.package-version }}':"
+          jq '.name = "${{ inputs.package-version }}"' package.json | tee package.json | jq
       - name: 'NPM: Metadata'
         id: metadata
         env:
@@ -116,4 +160,5 @@ jobs:
             --dry-run=${{ inputs.publish-dry }} \
             --access=public \
             --registry="${{ inputs.registry }}"" \
-            --provenance=${{ inputs.provenance }}
+            --provenance=${{ inputs.provenance }} \
+            --tag="${{ inputs.tag }}"

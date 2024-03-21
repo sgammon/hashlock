@@ -1,3 +1,5 @@
+/* eslint @typescript-eslint/no-unused-vars: 0 */
+
 /*
  * Copyright (c) 2024 Elide Technologies, Inc.
  *
@@ -197,7 +199,7 @@ export async function generateAction(
   cli: Command,
   logger: HashVerifierLogger
 ): Promise<CliExitCode> {
-  console.log('would generate', cli, logger)
+  // not yet implemented
   return 0
 }
 
@@ -205,7 +207,6 @@ export async function freshenAction(
   cli: Command,
   logger: HashVerifierLogger
 ): Promise<CliExitCode> {
-  console.log('would freshen', cli, logger)
   return 0
 }
 

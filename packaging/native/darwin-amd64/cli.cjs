@@ -13,5 +13,5 @@
 
 module.exports = {
   platform: 'darwin-amd64',
-  bin: import.meta.resolve('@hashlock/hashlock-darwin-amd64/bin/hashlock'),
+  bin: require.resolve('@hashlock/hashlock-darwin-amd64/bin/hashlock'),
 }

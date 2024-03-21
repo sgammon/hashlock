@@ -313,7 +313,10 @@ export default async function nativePackage(
       registry || DEFAULT_REGISTRY,
       provenance,
       dry,
-      process.env.PUBLISHING_TOKEN || process.env.PUBLISH_TOKEN || process.env.NPM_TOKEN || ''
+      process.env.PUBLISHING_TOKEN ||
+        process.env.PUBLISH_TOKEN ||
+        process.env.NPM_TOKEN ||
+        ''
     )
     return { ...buildResult, ...publishResult }
   }

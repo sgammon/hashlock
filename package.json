@@ -1,5 +1,5 @@
 {
-  "name": "@sgammon/verify-hashes",
+  "name": "hashlock",
   "version": "1.0.0-rc2",
   "private": true,
   "description": "Verify hash files (like something.sha256)",
@@ -25,19 +25,41 @@
     "url": "https://github.com/sgammon"
   },
   "exports": {
+    "./generator": {
+      "require": "./dist/generator.cjs",
+      "import": "./dist/generator.mjs",
+      "types": "./dist/generator.d.ts",
+      "default": "./dist/generator.cjs"
+    },
     ".": {
-      "require": "./dist/main.js",
-      "types": "./dist/main.d.ts"
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.cjs"
     }
   },
   "bin": {
     "hashlock": "bin/hashlock"
   },
+  "files": [
+    "dist/cli.js",
+    "dist/cli.js.LEGAL.txt",
+    "dist/cli.js.map",
+    "dist/lib.cjs",
+    "dist/lib.cjs.gz",
+    "dist/lib.mjs",
+    "dist/lib.mjs.gz",
+    "dist/lib.js.LEGAL.txt",
+    "dist/lib.js.map",
+    "dist/lib.d.ts"
+  ],
   "scripts": {
     "all": "bun run format:write && bun run lint ; bun run build && bun run test && bun test && bun run coverage && bun run dist",
-    "build": "bun ./scripts/build.mjs && bun run build:standalone",
+    "build": "bun ./scripts/build.mjs && bun run build:standalone && bun run build:types",
     "build:standalone": "bun build ./src/entry.ts --compile --outfile ./bin/hashlock",
+    "build:types": "tsc -p . && mv ./dist/src/*.d.ts ./dist/ && rm -f ./dist/{action.d.ts,action-entry.d.ts,github.d.ts,entry.d.ts} && rm -fr ./dist/src",
     "ci-test": "bun x jest",
+    "clean": "rm -fr dist bin",
     "cli": "./bin/hashlock",
     "coverage": "bun x make-coverage-badge --output-path ./badges/coverage.svg",
     "dist": "bun run build && bun run precompress && bun run stats",

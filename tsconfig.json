@@ -6,7 +6,7 @@
     "module": "NodeNext",
     "rootDir": ".",
     "moduleResolution": "NodeNext",
-    "baseUrl": "./",
+    "baseUrl": ".",
     "sourceMap": true,
     "outDir": "./dist",
     "noImplicitAny": true,
@@ -16,7 +16,8 @@
     "strict": true,
     "skipLibCheck": true,
     "newLine": "lf",
-    "declaration": true
+    "declaration": true,
+    "emitDeclarationOnly": true
   },
   "exclude": ["./dist", "./node_modules", "./__tests__", "./coverage"]
 }
