@@ -174,3 +174,5 @@ jobs:
             --registry="${{ inputs.registry }}" \
             --provenance=${{ inputs.provenance }} \
             --tag="${{ inputs.tag }}"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
