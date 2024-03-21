@@ -100,6 +100,7 @@ jobs:
     permissions:
       contents: read
       id-token: write
+      packages: write
     environment:
       name: ${{ inputs.environment }}
     outputs:
@@ -175,4 +176,4 @@ jobs:
             --provenance=${{ inputs.provenance }} \
             --tag="${{ inputs.tag }}"
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_TOKEN || github.token }}
