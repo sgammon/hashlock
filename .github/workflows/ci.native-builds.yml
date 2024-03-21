@@ -61,6 +61,8 @@ jobs:
     name: 'Executables'
     runs-on: ubuntu-latest
     needs: [native-build]
+    outputs:
+      hashes: ${{ steps.hash.outputs.hashes }}
     steps:
       - name: 'Download: Artifacts'
         uses: actions/download-artifact@c850b930e6ba138125429b7e5c93fc707a7f8427 # v4.1.4
@@ -68,6 +70,29 @@ jobs:
           path: ${{ inputs.artifact-prefix }}
           pattern: '${{ inputs.artifact-prefix }}*'
           merge-multiple: true
+      - name: 'Build: Provenance Hashes'
+        shell: bash
+        id: hash
+        run: |
+          echo "Release assets:"
+          cd ${{ inputs.artifact-prefix }}/
+          ls -la ./
+          file ./*
+          du -h ./*
+          echo ""
+
+          sha256sum ./* > ../pkg-hashes.txt
+          echo "Hashes:"
+          cat ../pkg-hashes.txt
+          echo ""
+
+          cat ../pkg-hashes.txt | base64 -w0 > ../pkg-hashes-encoded.txt
+          echo "Encoded Hashes:"
+          cat ../pkg-hashes-encoded.txt
+          echo ""
+
+          echo "hashes=$(sha256sum ./* | base64 -w0)" >> "$GITHUB_OUTPUT"
+          cd ..
       - name: 'Artifact: Merged'
         uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
         with:
@@ -76,3 +101,15 @@ jobs:
           compression-level: 4
           overwrite: true
           path: '${{ inputs.artifact-prefix }}/*'
+
+  provenance:
+    name: 'SLSA Provenance'
+    needs: [native-build, prepare-artifacts]
+    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v1.10.0
+    permissions:
+      actions: read
+      contents: write
+      id-token: write
+    with:
+      base64-subjects: '${{ needs.prepare-artifacts.outputs.hashes }}'
+      upload-assets: false
