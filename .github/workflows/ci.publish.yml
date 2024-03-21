@@ -90,6 +90,9 @@ jobs:
     permissions:
       contents: read
       id-token: write
+    environment:
+      name: npm
+      url: https://www.npmjs.com/package/hashlock
     outputs:
       lib: 'main'
       package: ${{ steps.metadata.outputs.package }}
@@ -123,12 +126,12 @@ jobs:
         if: inputs.package-name != ''
         run: |
           echo "Overriding package name as '${{ inputs.package-name }}':"
-          jq '.name = "${{ inputs.package-name }}"' package.json | tee package.json | jq
+          cat package.json | jq '.name = "${{ inputs.package-name }}"' | tee package.json | jq
       - name: 'NPM: Package Version Override'
         if: inputs.package-version != ''
         run: |
           echo "Overriding package name as '${{ inputs.package-version }}':"
-          jq '.name = "${{ inputs.package-version }}"' package.json | tee package.json | jq
+          cat package.json | jq '.name = "${{ inputs.package-version }}"' | tee package.json | jq
       - name: 'NPM: Metadata'
         id: metadata
         env:

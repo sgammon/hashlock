@@ -28,18 +28,20 @@ const buildSettings = {
 
 const buildSettingsCjs = {
   ...buildSettings,
+  format: 'cjs',
   outdir: 'dist'
 }
 
 const buildSettingsEsm = {
   ...buildSettings,
+  format: 'esm',
   outdir: 'dist'
 }
 
 export default async function buildLib() {
-  console.info("- Building 'verify-hashes' (lib, cjs)...")
+  console.info("- Building 'hashlock' (lib, cjs)...")
   await esbuild.build(buildSettingsCjs)
 
-  console.info("- Building 'verify-hashes' (lib, esm)...")
+  console.info("- Building 'hashlock' (lib, esm)...")
   await esbuild.build(buildSettingsEsm)
 }

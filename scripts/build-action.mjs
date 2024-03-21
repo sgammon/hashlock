@@ -16,11 +16,12 @@ import * as esbuild from 'esbuild'
 
 const buildSettings = {
   ...common,
+  format: 'cjs',
   entryPoints: ['src/action.ts'],
   outfile: 'dist/action.js'
 }
 
 export default async function buildAction() {
-  console.info("- Building 'verify-hashes' (action)...")
+  console.info("- Building 'hashlock' (action)...")
   await esbuild.build(buildSettings)
 }

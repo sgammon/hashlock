@@ -16,11 +16,12 @@ import * as esbuild from 'esbuild'
 
 const buildSettings = {
   ...common,
+  format: 'esm',
   entryPoints: ['src/entry.ts'],
   outfile: 'dist/cli.js'
 }
 
 export default async function buildCli() {
-  console.info("- Building 'verify-hashes' (CLI)...")
+  console.info("- Building 'hashlock' (CLI)...")
   await esbuild.build(buildSettings)
 }

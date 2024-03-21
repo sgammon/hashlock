@@ -14,7 +14,6 @@
 export const common = {
   bundle: true,
   drop: ['console', 'debugger'],
-  format: 'cjs',
   legalComments: 'external',
   metafile: true,
   minify: true,
