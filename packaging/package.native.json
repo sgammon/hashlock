@@ -1,0 +1,37 @@
+{
+  "name": "@hashlock/hashlock-cli",
+  "version": "1.0.0-rc2",
+  "description": "Native CLI for verifying hashlocks",
+  "keywords": ["hashlock", "cli", "native"],
+  "main": "cli.cjs",
+  "bin": {
+    "hashlock": "bin/hashlock"
+  },
+  "homepage": "https://github.com/sgammon/verify-hashes",
+  "bugs": {
+    "url": "https://github.com/sgammon/verify-hashes/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sgammon/verify-hashes.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Sam Gammon",
+    "url": "https://github.com/sgammon"
+  },
+  "exports": {
+    "./bin/hashlock": {
+      "default": "./bin/hashlock"
+    },
+    ".": {
+      "import": "./cli.mjs",
+      "require": "./cli.cjs",
+      "default": "./cli.cjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

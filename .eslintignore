@@ -5,3 +5,5 @@ coverage/
 __tests__
 src/model.ts
 src/entry.ts
+commitlint.config.js
+packaging/

@@ -91,6 +91,41 @@ jobs:
           $SHA1SUM_TOOL hashlock.${{ inputs.tag }} | tee hashlock.${{ inputs.tag }}.sha1
           $SHA256SUM_TOOL hashlock.${{ inputs.tag }} | tee hashlock.${{ inputs.tag }}.sha256
           $SHA512SUM_TOOL hashlock.${{ inputs.tag }} | tee hashlock.${{ inputs.tag }}.sha512
+      - name: 'Build: Archives'
+        run: |
+          echo "Building archives..."
+          mkdir hashlock-${{ inputs.tag }}
+          cp -fv bin/hashlock hashlock-${{ inputs.tag }}/hashlock
+          cp -fv hashlock.${{ inputs.tag }}.sha1 hashlock-${{ inputs.tag }}/
+          cp -fv hashlock.${{ inputs.tag }}.sha256 hashlock-${{ inputs.tag }}/
+          cp -fv hashlock.${{ inputs.tag }}.sha512 hashlock-${{ inputs.tag }}/
+
+          echo ""
+          echo "Building tarball..."
+          tar -cvf hashlock-${{ inputs.tag }}.tar hashlock-${{ inputs.tag }}/*
+          gzip -v --best hashlock-${{ inputs.tag }}.tar
+          mv -fv hashlock-${{ inputs.tag }}.tar.gz hashlock-${{ inputs.tag }}.tgz
+          rm -fv hashlock-${{ inputs.tag }}.tar
+          echo ""
+          echo "Building zip..."
+          zip -9 -v -r hashlock-${{ inputs.tag }}.zip hashlock-${{ inputs.tag }}/*
+          echo ""
+          echo "Building xz..."
+          tar -cvf - hashlock-${{ inputs.tag }}/ | xz -9 -v -z - > hashlock-${{ inputs.tag }}.txz
+
+          mkdir -p hashlock-${{ inputs.tag }}-archives
+          mv -fv hashlock-${{ inputs.tag }}.tgz hashlock-${{ inputs.tag }}.zip hashlock-${{ inputs.tag }}.txz hashlock-${{ inputs.tag }}-archives/
+
+          cd hashlock-${{ inputs.tag }}-archives
+          echo ""
+          echo "Generating hashes for archives..."
+          du -h ./*
+          for f in ./*; do sha256sum $f | tee $f.sha256; done
+          for f in ./*; do sha512sum $f | tee $f.sha512; done
+          cd ..
+          echo "Cleaning up..."
+          rm -frv hashlock-${{ inputs.tag }} hashlock-${{ inputs.tag }}.tgz hashlock-${{ inputs.tag }}.zip hashlock-${{ inputs.tag }}.txz
+          echo "Done."
       - name: 'Artifact: Executable'
         uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
         with:
@@ -103,6 +138,23 @@ jobs:
             hashlock.${{ inputs.tag }}.sha1
             hashlock.${{ inputs.tag }}.sha256
             hashlock.${{ inputs.tag }}.sha512
+      - name: 'Artifact: Archives'
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
+        with:
+          name: ${{ inputs.artifact }}-archives
+          retention-days: ${{ inputs.retention-days }}
+          compression-level: 0
+          overwrite: true
+          path: |
+            hashlock-${{ inputs.tag }}-archives/hashlock-${{ inputs.tag }}.tgz
+            hashlock-${{ inputs.tag }}-archives/hashlock-${{ inputs.tag }}.tgz.sha256
+            hashlock-${{ inputs.tag }}-archives/hashlock-${{ inputs.tag }}.tgz.sha512
+            hashlock-${{ inputs.tag }}-archives/hashlock-${{ inputs.tag }}.zip
+            hashlock-${{ inputs.tag }}-archives/hashlock-${{ inputs.tag }}.zip.sha256
+            hashlock-${{ inputs.tag }}-archives/hashlock-${{ inputs.tag }}.zip.sha512
+            hashlock-${{ inputs.tag }}-archives/hashlock-${{ inputs.tag }}.txz
+            hashlock-${{ inputs.tag }}-archives/hashlock-${{ inputs.tag }}.txz.sha256
+            hashlock-${{ inputs.tag }}-archives/hashlock-${{ inputs.tag }}.txz.sha512
 
   smoke-test:
     name: 'Tests: Smoke Test (${{ inputs.label }})'

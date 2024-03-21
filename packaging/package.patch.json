@@ -1,0 +1,20 @@
+{
+  "bin": { "hashlock": "bin/hashlock" },
+  "main": "dist/main.js",
+  "module": "dist/main.mjs",
+  "types": "dist/main.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/main.mjs",
+      "require": "./dist/main.js",
+      "types": "./dist/main.d.ts",
+      "default": "./dist/main.js"
+    }
+  },
+  "optionalDependencies": {
+    "@hashlock/hashlock-linux-amd64": "$(version)",
+    "@hashlock/hashlock-darwin-arm64": "$(version)",
+    "@hashlock/hashlock-darwin-amd64": "$(version)",
+    "@hashlock/hashlock-windows-amd64": "$(version)"
+  }
+}

@@ -1,6 +1,7 @@
 {
-  "name": "hashlock",
-  "version": "1.0.0-rc1",
+  "name": "@sgammon/verify-hashes",
+  "version": "1.0.0-rc2",
+  "private": true,
   "description": "Verify hash files (like something.sha256)",
   "keywords": [
     "actions",
@@ -28,6 +29,9 @@
       "require": "./dist/main.js",
       "types": "./dist/main.d.ts"
     }
+  },
+  "bin": {
+    "hashlock": "bin/hashlock"
   },
   "scripts": {
     "all": "bun run format:write && bun run lint ; bun run build && bun run test && bun test && bun run coverage && bun run dist",

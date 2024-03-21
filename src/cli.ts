@@ -17,6 +17,7 @@ import { createCliLogger, createCliReporter } from './tool'
 import { HashAlgorithm, allAlgorithms } from './model'
 import { HashVerifierLogger, HashVerifierResultsReceiver } from './logger'
 import checkHashes from './main'
+import packageJson from '../package.json'
 
 /**
  * Name of the CLI tool.
@@ -26,7 +27,7 @@ export const CLI_NAME = 'hashlock'
 /**
  * Version of the CLI tool.
  */
-export const CLI_VERSION = '0.0.1'
+export const CLI_VERSION = packageJson.version
 
 /**
  * Algorithms which are considered outdated.

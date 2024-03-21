@@ -1,0 +1,13 @@
+{
+  "name": "@hashlock/hashlock-darwin-amd64",
+  "version": "$(version)",
+  "description": "The macOS x86 binary for hashlock",
+  "license": "MIT",
+  "os": [
+    "darwin"
+  ],
+  "cpu": [
+    "amd64"
+  ],
+  "preferUnplugged": true
+}
