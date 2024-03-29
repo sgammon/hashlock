@@ -7,3 +7,4 @@ pnpm-lock.yaml
 bun.lockb
 packaging/native/*/cli.cjs
 README.md
+.github/workflows
