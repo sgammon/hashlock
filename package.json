@@ -47,6 +47,7 @@
     "dist/*.js",
     "dist/*.cjs",
     "dist/*.mjs",
+    "dist/*.d.ts",
     "dist/*.map",
     "dist/*.LEGAL.txt",
     "!dist/action.js",
