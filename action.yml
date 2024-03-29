@@ -1,4 +1,4 @@
-name: 'Verify Hashes'
+name: 'Hashlock'
 description: 'Verify hash files like <file>.sha256 from GitHub Actions'
 author: 'Sam Gammon'
 
