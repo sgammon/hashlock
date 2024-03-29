@@ -23,7 +23,6 @@
     "name": "Sam Gammon",
     "url": "https://github.com/sgammon"
   },
-  "type": "module",
   "exports": {
     "./generator": {
       "require": "./dist/generator.js",
@@ -44,7 +43,7 @@
       "default": "./dist/index.js"
     }
   },
-  "main": "./dist/index.mjs",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist/*.js",
@@ -109,11 +108,19 @@
       "text",
       "lcov"
     ],
+    "extensionsToTreatAsEsm": [
+      ".ts",
+      ".mts"
+    ],
     "moduleFileExtensions": [
       "js",
       "ts"
     ],
-    "preset": "ts-jest",
+    "moduleNameMapper": {
+      "(.+)\\.js$": "$1",
+      "package.json": "<rootDir>/package.json"
+    },
+    "preset": "ts-jest/presets/default-esm",
     "setupFiles": [
       "<rootDir>/__tests__/setup.js"
     ],
@@ -127,7 +134,12 @@
       "/dist/"
     ],
     "transform": {
-      "^.+\\.ts$": "ts-jest"
+      "\\.[jt]?$": [
+        "ts-jest",
+        {
+          "useESM": true
+        }
+      ]
     },
     "verbose": true
   },
