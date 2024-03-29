@@ -29,13 +29,16 @@ const buildSettings = {
 const buildSettingsCjs = {
   ...buildSettings,
   format: 'cjs',
-  outdir: 'dist'
+  outdir: 'dist/cjs'
 }
 
 const buildSettingsEsm = {
   ...buildSettings,
   format: 'esm',
-  outdir: 'dist'
+  outdir: 'dist/esm',
+  outExtension: {
+    '.js': '.mjs'
+  }
 }
 
 export default async function buildLib() {

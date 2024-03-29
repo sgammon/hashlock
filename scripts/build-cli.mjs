@@ -16,12 +16,14 @@ import * as esbuild from 'esbuild'
 
 const buildSettings = {
   ...common,
-  format: 'esm',
-  entryPoints: ['src/entry.ts'],
-  outfile: 'dist/cli.js'
+  entryPoints: ['src/entry.ts']
 }
 
 export default async function buildCli() {
-  console.info("- Building 'hashlock' (CLI)...")
-  await esbuild.build(buildSettings)
+  console.info("- Building 'hashlock' (CLI, esm)...")
+  await esbuild.build({
+    ...buildSettings,
+    format: 'esm',
+    outfile: 'dist/cli.mjs'
+  })
 }

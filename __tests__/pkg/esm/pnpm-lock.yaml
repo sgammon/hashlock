@@ -1,0 +1,19 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+dependencies:
+  hashlock:
+    specifier: file:../../../
+    version: file:../../..
+
+packages:
+
+  file:../../..:
+    resolution: {directory: ../../.., type: directory}
+    name: hashlock
+    engines: {node: '>=20'}
+    hasBin: true
+    dev: false
