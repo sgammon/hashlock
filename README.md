@@ -1,6 +1,6 @@
 # `hashlock`
 
-> Latest release: `1.0.0-rc5`
+> Latest release: `1.0.0-rc6`
 
 [![CI](https://github.com/sgammon/hashlock/actions/workflows/on.push.yml/badge.svg)](https://github.com/sgammon/hashlock/actions/workflows/on.push.yml)
 ![NPM Version](https://img.shields.io/npm/v/hashlock)
