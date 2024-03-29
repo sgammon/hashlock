@@ -6,3 +6,4 @@ package-lock.json
 pnpm-lock.yaml
 bun.lockb
 packaging/native/*/cli.cjs
+README.md
