@@ -10,13 +10,13 @@
     "integrity",
     "check"
   ],
-  "homepage": "https://github.com/sgammon/verify-hashes",
+  "homepage": "https://github.com/sgammon/hashlock",
   "bugs": {
-    "url": "https://github.com/sgammon/verify-hashes/issues"
+    "url": "https://github.com/sgammon/hashlock/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sgammon/verify-hashes"
+    "url": "https://github.com/sgammon/hashlock"
   },
   "license": "MIT",
   "author": {
