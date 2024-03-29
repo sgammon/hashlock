@@ -1,6 +1,6 @@
 {
   "name": "hashlock",
-  "version": "1.0.0-rc2",
+  "version": "1.0.0-rc3",
   "description": "Verify hash files (like something.sha256)",
   "keywords": [
     "actions",
