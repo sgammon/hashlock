@@ -30,6 +30,12 @@
       "types": "./dist/generator.d.ts",
       "default": "./dist/generator.cjs"
     },
+    "./model": {
+      "require": "./dist/model.cjs",
+      "import": "./dist/model.mjs",
+      "types": "./dist/model.d.ts",
+      "default": "./dist/model.cjs"
+    },
     ".": {
       "require": "./dist/index.cjs",
       "import": "./dist/index.mjs",
@@ -37,20 +43,14 @@
       "default": "./dist/index.cjs"
     }
   },
-  "bin": {
-    "hashlock": "bin/hashlock"
-  },
   "files": [
-    "dist/cli.js",
-    "dist/cli.js.LEGAL.txt",
-    "dist/cli.js.map",
-    "dist/lib.cjs",
-    "dist/lib.cjs.gz",
-    "dist/lib.mjs",
-    "dist/lib.mjs.gz",
-    "dist/lib.js.LEGAL.txt",
-    "dist/lib.js.map",
-    "dist/lib.d.ts"
+    "dist/*.js",
+    "dist/*.cjs",
+    "dist/*.mjs",
+    "dist/*.map",
+    "dist/*.LEGAL.txt",
+    "!dist/action.js",
+    "!dist/action.*"
   ],
   "scripts": {
     "all": "bun run format:write && bun run lint ; bun run build && bun run test && bun test && bun run coverage && bun run dist",
