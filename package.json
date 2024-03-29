@@ -24,8 +24,6 @@
     "url": "https://github.com/sgammon"
   },
   "type": "module",
-  "main": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
   "exports": {
     "./generator": {
       "require": "./dist/generator.js",
@@ -46,6 +44,8 @@
       "default": "./dist/index.js"
     }
   },
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist/*.js",
     "dist/*.cjs",
