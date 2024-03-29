@@ -1,6 +1,6 @@
 {
   "name": "hashlock",
-  "version": "1.0.0-rc5",
+  "version": "1.0.0-rc6",
   "description": "Verify hash files (like something.sha256)",
   "keywords": [
     "actions",
@@ -25,27 +25,32 @@
   },
   "exports": {
     "./generator": {
-      "require": "./dist/generator.js",
-      "import": "./dist/generator.mjs",
+      "require": "./dist/cjs/generator.js",
+      "import": "./dist/esm/generator.mjs",
       "types": "./dist/generator.d.ts",
-      "default": "./dist/generator.js"
+      "default": "./dist/esm/generator.mjs"
     },
     "./model": {
-      "require": "./dist/model.js",
-      "import": "./dist/model.mjs",
+      "require": "./dist/cjs/model.js",
+      "import": "./dist/esm/model.mjs",
       "types": "./dist/model.d.ts",
-      "default": "./dist/model.js"
+      "default": "./dist/esm/model.mjs"
     },
     ".": {
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs",
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.mjs",
       "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "default": "./dist/esm/index.mjs"
     }
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "bin": {
+    "hashlock": "./dist/cli.mjs"
+  },
   "files": [
+    "dist/cjs/*.js",
+    "dist/esm/*.*",
     "dist/*.js",
     "dist/*.cjs",
     "dist/*.mjs",

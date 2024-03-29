@@ -1,0 +1,12 @@
+{
+  "name": "test-esm",
+  "type": "module",
+  "main": "index.mjs",
+  "module": "index.mjs",
+  "scripts": {
+    "test": "hashlock check ."
+  },
+  "dependencies": {
+    "hashlock": "file:../../../"
+  }
+}

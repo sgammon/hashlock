@@ -1,0 +1,7 @@
+{
+  "name": "test-cjs",
+  "main": "index.js",
+  "dependencies": {
+    "hashlock": "file:../../../"
+  }
+}
