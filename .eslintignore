@@ -1,5 +1,6 @@
 lib/
 dist/
+docs/
 node_modules/
 coverage/
 __tests__

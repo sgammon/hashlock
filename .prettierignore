@@ -1,6 +1,7 @@
 dist/
 node_modules/
 coverage/
+docs/
 package-lock.json
 pnpm-lock.yaml
 bun.lockb
