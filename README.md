@@ -8,7 +8,6 @@
 [![codecov](https://codecov.io/gh/sgammon/verify-hashes/graph/badge.svg?token=WjsLdBMl6u)](https://codecov.io/gh/sgammon/verify-hashes)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=sgammon_verify-hashes&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=sgammon_verify-hashes)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=sgammon_verify-hashes&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=sgammon_verify-hashes)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=sgammon_verify-hashes&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=sgammon_verify-hashes)
 
 ---
 
