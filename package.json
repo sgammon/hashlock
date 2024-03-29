@@ -23,24 +23,27 @@
     "name": "Sam Gammon",
     "url": "https://github.com/sgammon"
   },
+  "type": "module",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "exports": {
     "./generator": {
-      "require": "./dist/generator.cjs",
+      "require": "./dist/generator.js",
       "import": "./dist/generator.mjs",
       "types": "./dist/generator.d.ts",
-      "default": "./dist/generator.cjs"
+      "default": "./dist/generator.js"
     },
     "./model": {
-      "require": "./dist/model.cjs",
+      "require": "./dist/model.js",
       "import": "./dist/model.mjs",
       "types": "./dist/model.d.ts",
-      "default": "./dist/model.cjs"
+      "default": "./dist/model.js"
     },
     ".": {
-      "require": "./dist/index.cjs",
+      "require": "./dist/index.js",
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.ts",
-      "default": "./dist/index.cjs"
+      "default": "./dist/index.js"
     }
   },
   "files": [
