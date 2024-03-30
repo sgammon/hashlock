@@ -43,6 +43,9 @@ jobs:
           version: '8.15.3'
           run_install: |
             - args: [--frozen-lockfile, --strict-peer-dependencies]
+      - name: 'Build: Bundle'
+        id: build-bundle
+        run: bun --bun run build
       - name: 'Check: Run ESLint'
         run: |
           bun run lint -- --format @microsoft/eslint-formatter-sarif --output-file eslint-results.sarif
