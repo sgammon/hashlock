@@ -1,6 +1,6 @@
 {
   "name": "hashlock",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Verify hash files (like something.sha256)",
   "keywords": [
     "actions",
@@ -23,27 +23,33 @@
     "name": "Sam Gammon",
     "url": "https://github.com/sgammon"
   },
+  "type": "commonjs",
   "exports": {
     "./generator": {
+      "types": "./dist/generator.d.ts",
       "require": "./dist/cjs/generator.js",
       "import": "./dist/esm/generator.mjs",
-      "types": "./dist/generator.d.ts",
       "default": "./dist/esm/generator.mjs"
     },
     "./model": {
+      "types": "./dist/model.d.ts",
       "require": "./dist/cjs/model.js",
       "import": "./dist/esm/model.mjs",
-      "types": "./dist/model.d.ts",
       "default": "./dist/esm/model.mjs"
     },
     ".": {
-      "require": "./dist/cjs/index.js",
-      "import": "./dist/esm/index.mjs",
-      "types": "./dist/index.d.ts",
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/esm/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      },
       "default": "./dist/esm/index.mjs"
     }
   },
-  "main": "./dist/index.js",
+  "main": "./dist/cjs/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
     "hashlock": "./dist/cli.mjs"
@@ -55,6 +61,7 @@
     "dist/*.cjs",
     "dist/*.mjs",
     "dist/*.d.ts",
+    "dist/*.d.mts",
     "dist/*.map",
     "dist/*.LEGAL.txt",
     "!dist/action.js",
@@ -62,7 +69,7 @@
   ],
   "scripts": {
     "all": "bun run format:write && bun run lint ; bun run build && bun run test && bun test && bun run coverage && bun run dist",
-    "build": "bun ./scripts/build.mjs && bun run build:standalone && bun run build:types",
+    "build": "bun ./scripts/build.mjs && bun run build:standalone && bun run build:types && cp -fv ./dist/index.d.ts ./dist/index.d.mts",
     "build:standalone": "bun build ./src/entry.ts --compile --outfile ./bin/hashlock",
     "build:types": "tsc -p . && mv ./dist/src/*.d.ts ./dist/ && rm -f ./dist/{action.d.ts,action-entry.d.ts,github.d.ts,entry.d.ts,cli.d.ts} && rm -fr ./dist/src",
     "ci-test": "bun x jest",
@@ -75,7 +82,7 @@
     "format:check": "bun x prettier --check .",
     "format:write": "bun x prettier --write .",
     "hashlock": "./bin/hashlock",
-    "lint": "bun x eslint . -c ./.github/linters/.eslintrc.yml",
+    "lint": "publint && bun x eslint . -c ./.github/linters/.eslintrc.yml",
     "lockfiles": "rm -fr node_modules && npm i && rm -fr node_modules && bun i && rm -fr node_modules && pnpm i",
     "precompress": "cd dist && pigz -p 4 -k -f -9 ./*.js",
     "stats": "echo Distribution Stats: && du -h ./bin/* ./bin && du -h ./dist/* ./dist",
@@ -176,6 +183,7 @@
     "prettier": "3.2.5",
     "prettier-eslint": "16.3.0",
     "prettier-plugin-packagejson": "2.4.13",
+    "publint": "0.2.7",
     "ts-jest": "29.1.2",
     "typedoc": "0.25.12",
     "typescript": "5.4.3"
