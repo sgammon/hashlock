@@ -17,10 +17,10 @@
 //
 
 import { existsSync } from 'node:fs'
+import { createHash } from 'node:crypto' // @TODO(sgammon): streaming?
 import { readFile, writeFile } from 'node:fs/promises'
 import { normalize, resolve, join, dirname, basename } from 'node:path'
 import { HashAlgorithm, HashEncoding, HashFile } from './model'
-import { createHash } from 'node:crypto' // @TODO(sgammon): streaming?
 
 /**
  * Generate an encoded hash for the provided content

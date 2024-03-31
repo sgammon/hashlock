@@ -1,0 +1,48 @@
+diff --git a/node_modules/path-scurry/dist/commonjs/index.js b/node_modules/path-scurry/dist/commonjs/index.js
+index 6e330d4..623a29e 100644
+--- a/node_modules/path-scurry/dist/commonjs/index.js
++++ b/node_modules/path-scurry/dist/commonjs/index.js
+@@ -25,14 +25,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.PathScurry = exports.Path = exports.PathScurryDarwin = exports.PathScurryPosix = exports.PathScurryWin32 = exports.PathScurryBase = exports.PathPosix = exports.PathWin32 = exports.PathBase = exports.ChildrenCache = exports.ResolveCache = void 0;
+ const lru_cache_1 = require("lru-cache");
+-const path_1 = require("path");
+-const url_1 = require("url");
+-const actualFS = __importStar(require("fs"));
+-const fs_1 = require("fs");
++const path_1 = require("node:path");
++const url_1 = require("node:url");
++const process = require("node:process");
++const actualFS = __importStar(require("node:fs"));
++const fs_1 = require("node:fs");
+ const realpathSync = fs_1.realpathSync.native;
+ // TODO: test perf of fs/promises realpath vs realpathCB,
+ // since the promises one uses realpath.native
+-const promises_1 = require("fs/promises");
++const promises_1 = require("node:fs/promises");
+ const minipass_1 = require("minipass");
+ const defaultFS = {
+     lstatSync: fs_1.lstatSync,
+diff --git a/node_modules/path-scurry/dist/esm/index.js b/node_modules/path-scurry/dist/esm/index.js
+index 2ce978e..3550240 100644
+--- a/node_modules/path-scurry/dist/esm/index.js
++++ b/node_modules/path-scurry/dist/esm/index.js
+@@ -1,12 +1,13 @@
+ import { LRUCache } from 'lru-cache';
+-import { posix, win32 } from 'path';
+-import { fileURLToPath } from 'url';
+-import * as actualFS from 'fs';
+-import { lstatSync, readdir as readdirCB, readdirSync, readlinkSync, realpathSync as rps, } from 'fs';
++import { posix, win32 } from 'node:path';
++import { fileURLToPath } from 'node:url';
++import * as actualFS from 'node:fs';
++import { lstatSync, readdir as readdirCB, readdirSync, readlinkSync, realpathSync as rps, } from 'node:fs';
+ const realpathSync = rps.native;
+ // TODO: test perf of fs/promises realpath vs realpathCB,
+ // since the promises one uses realpath.native
+-import { lstat, readdir, readlink, realpath } from 'fs/promises';
++import { lstat, readdir, readlink, realpath } from 'node:fs/promises';
++import process from 'node:process';
+ import { Minipass } from 'minipass';
+ const defaultFS = {
+     lstatSync,

@@ -13,7 +13,7 @@
  *  License for the specific language governing permissions and limitations under the License.
  */
 
-import * as process from 'process'
+import * as process from 'node:process'
 import { Command } from 'commander'
 import { createCliLogger, createCliReporter } from './tool'
 import { HashAlgorithm, allAlgorithms } from './model'

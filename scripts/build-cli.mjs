@@ -11,12 +11,15 @@
  *  License for the specific language governing permissions and limitations under the License.
  */
 
-import common from './build-common.mjs'
 import * as esbuild from 'esbuild'
+import common from './build-common.mjs'
 
 const buildSettings = {
   ...common,
-  entryPoints: ['src/entry.ts']
+  inject: ['scripts/cjs-shim.js'],
+  external: ['node:*'],
+  entryPoints: ['src/entry.ts'],
+  minify: false
 }
 
 export default async function buildCli() {
