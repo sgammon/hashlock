@@ -1,0 +1,34 @@
+diff --git a/node_modules/minipass/dist/commonjs/index.js b/node_modules/minipass/dist/commonjs/index.js
+index b6cdae8..b6487d9 100644
+--- a/node_modules/minipass/dist/commonjs/index.js
++++ b/node_modules/minipass/dist/commonjs/index.js
+@@ -10,9 +10,9 @@ const proc = typeof process === 'object' && process
+         stdout: null,
+         stderr: null,
+     };
+-const events_1 = require("events");
+-const stream_1 = __importDefault(require("stream"));
+-const string_decoder_1 = require("string_decoder");
++const events_1 = require("node:events");
++const stream_1 = __importDefault(require("node:stream"));
++const string_decoder_1 = require("node:string_decoder");
+ /**
+  * Return true if the argument is a Minipass stream, Node stream, or something
+  * else that Minipass can interact with.
+diff --git a/node_modules/minipass/dist/esm/index.js b/node_modules/minipass/dist/esm/index.js
+index b65fafb..b5fa451 100644
+--- a/node_modules/minipass/dist/esm/index.js
++++ b/node_modules/minipass/dist/esm/index.js
+@@ -4,9 +4,9 @@ const proc = typeof process === 'object' && process
+         stdout: null,
+         stderr: null,
+     };
+-import { EventEmitter } from 'events';
+-import Stream from 'stream';
+-import { StringDecoder } from 'string_decoder';
++import { EventEmitter } from 'node:events';
++import Stream from 'node:stream';
++import { StringDecoder } from 'node:string_decoder';
+ /**
+  * Return true if the argument is a Minipass stream, Node stream, or something
+  * else that Minipass can interact with.

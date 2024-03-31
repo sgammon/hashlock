@@ -7,4 +7,5 @@ __tests__
 src/model.ts
 src/entry.ts
 commitlint.config.js
+scripts/cjs-shim.js
 packaging/

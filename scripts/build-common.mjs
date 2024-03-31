@@ -11,6 +11,16 @@
  *  License for the specific language governing permissions and limitations under the License.
  */
 
+import { replace } from 'esbuild-plugin-replace'
+import packageJson from '../package.json'
+
+export const target = ['es2022', 'node20']
+
+export const baseReplacements = {
+  __TOOL__: packageJson.tool,
+  __VERSION__: packageJson.version
+}
+
 export const common = {
   bundle: true,
   drop: ['console', 'debugger'],
@@ -19,9 +29,10 @@ export const common = {
   minify: true,
   platform: 'node',
   sourcemap: 'external',
-  sourceRoot: 'https://raw.githubusercontent.com/sgammon/verify-hashes/main/',
-  target: ['es2022', 'node20'],
-  treeShaking: true
+  sourceRoot: 'https://raw.githubusercontent.com/sgammon/hashlock/main/',
+  treeShaking: true,
+  target,
+  plugins: [replace(baseReplacements)]
 }
 
 export default common

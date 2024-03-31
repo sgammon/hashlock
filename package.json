@@ -1,6 +1,6 @@
 {
   "name": "hashlock",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Verify hash files (like something.sha256)",
   "keywords": [
     "actions",
@@ -79,9 +79,14 @@
     "dist": "bun run build && bun run precompress && bun run stats && rm -f ./dist/*.gz",
     "docs": "typedoc",
     "docs:open": "open ./docs/index.html",
+    "entry": "pnpm run entry:node",
+    "entry:bun": "bun ./dist/cli.mjs",
+    "entry:deno": "deno run ./dist/cli.mjs",
+    "entry:node": "node ./dist/cli.mjs",
     "format:check": "bun x prettier --check .",
     "format:write": "bun x prettier --write .",
     "hashlock": "./bin/hashlock",
+    "postinstall": "patch-package",
     "lint": "publint && bun x eslint . -c ./.github/linters/.eslintrc.yml",
     "lockfiles": "rm -fr node_modules && npm i && rm -fr node_modules && bun i && rm -fr node_modules && pnpm i",
     "precompress": "cd dist && pigz -p 4 -k -f -9 ./*.js",
@@ -170,6 +175,7 @@
     "chalk": "5.3.0",
     "commander": "12.0.0",
     "esbuild": "0.20.2",
+    "esbuild-plugin-replace": "1.4.0",
     "eslint": "8.57.0",
     "eslint-plugin-github": "4.10.2",
     "eslint-plugin-jest": "27.9.0",
@@ -180,6 +186,9 @@
     "jest": "29.7.0",
     "lint-staged": "15.2.2",
     "make-coverage-badge": "1.2.0",
+    "minipass": "7.0.4",
+    "patch-package": "8.0.0",
+    "path-scurry": "1.10.2",
     "prettier": "3.2.5",
     "prettier-eslint": "16.3.0",
     "prettier-plugin-packagejson": "2.4.13",
@@ -195,5 +204,6 @@
   "publishConfig": {
     "access": "public",
     "provenance": true
-  }
+  },
+  "tool": "hashlock"
 }
