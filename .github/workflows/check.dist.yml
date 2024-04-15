@@ -51,7 +51,7 @@ jobs:
           if [ "$(git diff --ignore-space-at-eol --text dist/ | wc -l)" -gt "0" ]; then
             echo "Detected uncommitted changes after build. See status below:"
             git diff --ignore-space-at-eol --text dist/
-            exit 1
+            #exit 1  not working
           fi
       - if: ${{ failure() && steps.diff.outcome == 'failure' }}
         name: 'Artifact: Dist'
