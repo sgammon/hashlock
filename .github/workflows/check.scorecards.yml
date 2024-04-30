@@ -28,7 +28,7 @@ jobs:
 
     steps:
       - name: 'Setup: Harden Runner'
-        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        uses: step-security/harden-runner@a4aa98b93cab29d9b1101a6143fb8bce00e2eac4 # v2.7.1
         with:
           disable-sudo: true
           egress-policy: block
@@ -43,7 +43,7 @@ jobs:
             tuf-repo-cdn.sigstore.dev:443
             www.bestpractices.dev:443
       - name: 'Setup: Checkout'
-        uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
+        uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
         with:
           persist-credentials: false
       - name: 'Analysis: Scorecard'
@@ -53,12 +53,12 @@ jobs:
           results_format: sarif
           publish_results: true
       - name: 'Artifact: SARIF'
-        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
+        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
         with:
           name: 'scorecard-sarif'
           path: results.sarif
           retention-days: 5
       - name: 'Reporting: Code Scanning'
-        uses: github/codeql-action/upload-sarif@1b1aada464948af03b950897e5eb522f92603cc2 # v3.24.9
+        uses: github/codeql-action/upload-sarif@d39d31e687223d841ef683f52467bd88e9b21c14 # v3.25.3
         with:
           sarif_file: results.sarif
