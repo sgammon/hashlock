@@ -124,7 +124,7 @@ jobs:
             rekor.sigstore.dev:443
       - name: 'Setup: Checkout'
         id: checkout
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           persist-credentials: false
       - name: 'Setup: Node'
@@ -178,7 +178,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_TOKEN || github.token }}
       - name: 'Artifact: Package'
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+        uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # v4.3.4
         with:
           name: ${{ inputs.artifact }}
           retention-days: 7
