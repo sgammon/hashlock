@@ -26,11 +26,11 @@ jobs:
             registry.npmjs.org:443
       - name: 'Setup: Checkout'
         id: checkout
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           persist-credentials: false
       - name: 'Setup: Node'
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
         with:
           node-version-file: .node-version
       - name: 'Setup: Bun'
@@ -51,7 +51,7 @@ jobs:
           bun run lint -- --format @microsoft/eslint-formatter-sarif --output-file eslint-results.sarif
         continue-on-error: true
       - name: 'Analysis: SARIF'
-        uses: github/codeql-action/upload-sarif@2e230e8fe0ad3a14a340ad0815ddb96d599d2aff # v3.25.8
+        uses: github/codeql-action/upload-sarif@4fa2a7953630fd2f3fb380f21be14ede0169dd4f # v3.25.12
         with:
           sarif_file: eslint-results.sarif
           wait-for-processing: true
