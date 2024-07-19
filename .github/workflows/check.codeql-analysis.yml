@@ -29,7 +29,7 @@ jobs:
 
     steps:
       - name: 'Setup: Harden Runner'
-        uses: step-security/harden-runner@17d0e2bd7d51742c71671bd19fa12bdc9d40a3d6 # v2.8.1
+        uses: step-security/harden-runner@0d381219ddf674d61a7572ddd19d7941e271515c # v2.9.0
         with:
           disable-sudo: true
           egress-policy: block
@@ -42,11 +42,11 @@ jobs:
             uploads.github.com:443
       - name: 'Setup: Checkout'
         id: checkout
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           persist-credentials: false
       - name: 'Setup: Node'
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
         with:
           node-version-file: .node-version
       - name: 'Setup: Bun'
@@ -61,13 +61,13 @@ jobs:
             - args: [--frozen-lockfile, --strict-peer-dependencies]
       - name: 'CodeQL: Initialize'
         id: initialize
-        uses: github/codeql-action/init@2e230e8fe0ad3a14a340ad0815ddb96d599d2aff # v3.25.8
+        uses: github/codeql-action/init@4fa2a7953630fd2f3fb380f21be14ede0169dd4f # v3.25.12
         with:
           languages: ${{ matrix.language }}
           source-root: src
       - name: 'CodeQL: Autobuild'
         id: autobuild
-        uses: github/codeql-action/autobuild@2e230e8fe0ad3a14a340ad0815ddb96d599d2aff # v3.25.8
+        uses: github/codeql-action/autobuild@4fa2a7953630fd2f3fb380f21be14ede0169dd4f # v3.25.12
       - name: 'CodeQL: Analysis'
         id: analyze
-        uses: github/codeql-action/analyze@2e230e8fe0ad3a14a340ad0815ddb96d599d2aff # v3.25.8
+        uses: github/codeql-action/analyze@4fa2a7953630fd2f3fb380f21be14ede0169dd4f # v3.25.12
