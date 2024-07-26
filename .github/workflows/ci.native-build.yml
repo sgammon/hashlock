@@ -73,7 +73,7 @@ jobs:
     runs-on: ${{ inputs.runner }}
     steps:
       - name: 'Setup: Harden Runner'
-        uses: step-security/harden-runner@17d0e2bd7d51742c71671bd19fa12bdc9d40a3d6 # v2.8.1
+        uses: step-security/harden-runner@0d381219ddf674d61a7572ddd19d7941e271515c # v2.9.0
         with:
           disable-sudo: true
           egress-policy: block
@@ -85,11 +85,11 @@ jobs:
             registry.npmjs.org:443
       - name: 'Setup: Checkout'
         id: checkout
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           persist-credentials: false
       - name: 'Setup: Node'
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
         with:
           node-version-file: .node-version
       - name: 'Setup: Bun'
@@ -156,7 +156,7 @@ jobs:
           rm -frv hashlock-${{ inputs.tag }} hashlock-${{ inputs.tag }}.tgz hashlock-${{ inputs.tag }}.zip hashlock-${{ inputs.tag }}.txz
           echo "Done."
       - name: 'Artifact: Executable'
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+        uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # v4.3.4
         with:
           name: ${{ inputs.artifact }}
           retention-days: ${{ inputs.retention-days }}
@@ -168,7 +168,7 @@ jobs:
             hashlock.${{ inputs.tag }}.sha256
             hashlock.${{ inputs.tag }}.sha512
       - name: 'Artifact: Archives'
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+        uses: actions/upload-artifact@0b2256b8c012f0828dc542b3febcab082c67f72b # v4.3.4
         with:
           name: ${{ inputs.artifact }}-archives
           retention-days: ${{ inputs.retention-days }}
@@ -192,12 +192,12 @@ jobs:
 
     steps:
       - name: 'Setup: Harden Runner'
-        uses: step-security/harden-runner@17d0e2bd7d51742c71671bd19fa12bdc9d40a3d6 # v2.8.1
+        uses: step-security/harden-runner@0d381219ddf674d61a7572ddd19d7941e271515c # v2.9.0
         with:
           disable-sudo: true
           egress-policy: block
       - name: 'Download: Artifacts'
-        uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e # v4.1.7
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
         with:
           name: ${{ inputs.artifact }}
       - name: 'Check: Hashes'
@@ -218,16 +218,16 @@ jobs:
       id-token: write
     steps:
       - name: 'Setup: Harden Runner'
-        uses: step-security/harden-runner@17d0e2bd7d51742c71671bd19fa12bdc9d40a3d6 # v2.8.1
+        uses: step-security/harden-runner@0d381219ddf674d61a7572ddd19d7941e271515c # v2.9.0
         with:
           egress-policy: audit
       - name: 'Setup: Checkout'
         id: checkout
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           persist-credentials: false
       - name: 'Setup: Node'
-        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
         with:
           node-version-file: .node-version
       - name: 'Setup: Bun'
