@@ -46,7 +46,7 @@ jobs:
         with:
           persist-credentials: false
       - name: 'Setup: Node'
-        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
+        uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v4.0.4
         with:
           node-version-file: .node-version
       - name: 'Setup: Bun'
@@ -61,13 +61,13 @@ jobs:
             - args: [--frozen-lockfile, --strict-peer-dependencies]
       - name: 'CodeQL: Initialize'
         id: initialize
-        uses: github/codeql-action/init@8214744c546c1e5c8f03dde8fab3a7353211988d # v3.26.7
+        uses: github/codeql-action/init@461ef6c76dfe95d5c364de2f431ddbd31a417628 # v3.26.9
         with:
           languages: ${{ matrix.language }}
           source-root: src
       - name: 'CodeQL: Autobuild'
         id: autobuild
-        uses: github/codeql-action/autobuild@8214744c546c1e5c8f03dde8fab3a7353211988d # v3.26.7
+        uses: github/codeql-action/autobuild@461ef6c76dfe95d5c364de2f431ddbd31a417628 # v3.26.9
       - name: 'CodeQL: Analysis'
         id: analyze
-        uses: github/codeql-action/analyze@8214744c546c1e5c8f03dde8fab3a7353211988d # v3.26.7
+        uses: github/codeql-action/analyze@461ef6c76dfe95d5c364de2f431ddbd31a417628 # v3.26.9
