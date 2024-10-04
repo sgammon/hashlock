@@ -175,7 +175,7 @@
     "commander": "git://github.com/tj/commander.js.git#b95ea4479a27fefb1e311454930ccaf3ab58b723",
     "esbuild": "0.24.0",
     "esbuild-plugin-replace": "1.4.0",
-    "eslint": "8.57.0",
+    "eslint": "8.57.1",
     "eslint-plugin-github": "5.0.2",
     "eslint-plugin-jest": "28.8.3",
     "eslint-plugin-jsonc": "2.16.0",
