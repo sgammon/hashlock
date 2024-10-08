@@ -6,8 +6,8 @@ settings:
 
 devDependencies:
   '@actions/core':
-    specifier: 1.11.0
-    version: 1.11.0
+    specifier: 1.11.1
+    version: 1.11.1
   '@clack/core':
     specifier: 0.3.4
     version: 0.3.4
@@ -16,7 +16,7 @@ devDependencies:
     version: 0.7.0
   '@commitlint/cli':
     specifier: 19.5.0
-    version: 19.5.0(@types/node@22.7.4)(typescript@5.6.2)
+    version: 19.5.0(@types/node@22.7.5)(typescript@5.6.2)
   '@commitlint/config-conventional':
     specifier: 19.5.0
     version: 19.5.0
@@ -27,8 +27,8 @@ devDependencies:
     specifier: 29.5.13
     version: 29.5.13
   '@types/node':
-    specifier: 22.7.4
-    version: 22.7.4
+    specifier: 22.7.5
+    version: 22.7.5
   '@typescript-eslint/eslint-plugin':
     specifier: 7.18.0
     version: 7.18.0(@typescript-eslint/parser@7.12.0)(eslint@8.57.0)(typescript@5.6.2)
@@ -73,7 +73,7 @@ devDependencies:
     version: 9.1.6
   jest:
     specifier: 29.7.0
-    version: 29.7.0(@types/node@22.7.4)
+    version: 29.7.0(@types/node@22.7.5)
   lint-staged:
     specifier: 15.2.10
     version: 15.2.10
@@ -105,8 +105,8 @@ devDependencies:
     specifier: 29.2.5
     version: 29.2.5(@babel/core@7.24.1)(esbuild@0.24.0)(jest@29.7.0)(typescript@5.6.2)
   typedoc:
-    specifier: 0.26.7
-    version: 0.26.7(typescript@5.6.2)
+    specifier: 0.26.8
+    version: 0.26.8(typescript@5.6.2)
   typescript:
     specifier: 5.6.2
     version: 5.6.2
@@ -118,8 +118,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /@actions/core@1.11.0:
-    resolution: {integrity: sha512-I21jQUzEjbZolw3jFZ/0iHGCb+rePCww9MaA0SbVFae4FpBTQWP1GIvr/m5Y6GVaxrDz7p3RhBtpBzwkA3rPSA==, tarball: https://registry.npmjs.org/@actions/core/-/core-1.11.0.tgz}
+  /@actions/core@1.11.1:
+    resolution: {integrity: sha512-hXJCSrkwfA46Vd9Z3q4cpEpHB1rL5NG04+/rbqW9d3+CSvtB1tYe8UTpAlixa1vj0m/ULglfEK2UKxMGxCxv5A==, tarball: https://registry.npmjs.org/@actions/core/-/core-1.11.1.tgz}
     dependencies:
       '@actions/exec': 1.1.1
       '@actions/http-client': 2.2.3
@@ -504,14 +504,14 @@ packages:
     bundledDependencies:
       - is-unicode-supported
 
-  /@commitlint/cli@19.5.0(@types/node@22.7.4)(typescript@5.6.2):
+  /@commitlint/cli@19.5.0(@types/node@22.7.5)(typescript@5.6.2):
     resolution: {integrity: sha512-gaGqSliGwB86MDmAAKAtV9SV1SHdmN8pnGq4EJU4+hLisQ7IFfx4jvU4s+pk6tl0+9bv6yT+CaZkufOinkSJIQ==, tarball: https://registry.npmjs.org/@commitlint/cli/-/cli-19.5.0.tgz}
     engines: {node: '>=v18'}
     hasBin: true
     dependencies:
       '@commitlint/format': 19.5.0
       '@commitlint/lint': 19.5.0
-      '@commitlint/load': 19.5.0(@types/node@22.7.4)(typescript@5.6.2)
+      '@commitlint/load': 19.5.0(@types/node@22.7.5)(typescript@5.6.2)
       '@commitlint/read': 19.5.0
       '@commitlint/types': 19.5.0
       tinyexec: 0.3.0
@@ -580,7 +580,7 @@ packages:
       '@commitlint/types': 19.5.0
     dev: true
 
-  /@commitlint/load@19.5.0(@types/node@22.7.4)(typescript@5.6.2):
+  /@commitlint/load@19.5.0(@types/node@22.7.5)(typescript@5.6.2):
     resolution: {integrity: sha512-INOUhkL/qaKqwcTUvCE8iIUf5XHsEPCLY9looJ/ipzi7jtGhgmtH7OOFiNvwYgH7mA8osUWOUDV8t4E2HAi4xA==, tarball: https://registry.npmjs.org/@commitlint/load/-/load-19.5.0.tgz}
     engines: {node: '>=v18'}
     dependencies:
@@ -590,7 +590,7 @@ packages:
       '@commitlint/types': 19.5.0
       chalk: 5.3.0
       cosmiconfig: 9.0.0(typescript@5.6.2)
-      cosmiconfig-typescript-loader: 5.0.0(@types/node@22.7.4)(cosmiconfig@9.0.0)(typescript@5.6.2)
+      cosmiconfig-typescript-loader: 5.0.0(@types/node@22.7.5)(cosmiconfig@9.0.0)(typescript@5.6.2)
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
@@ -986,7 +986,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 22.7.4
+      '@types/node': 22.7.5
       chalk: 4.1.2
       jest-message-util: 29.7.0
       jest-util: 29.7.0
@@ -1007,14 +1007,14 @@ packages:
       '@jest/test-result': 29.7.0
       '@jest/transform': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 22.7.4
+      '@types/node': 22.7.5
       ansi-escapes: 4.3.2
       chalk: 4.1.2
       ci-info: 3.9.0
       exit: 0.1.2
       graceful-fs: 4.2.11
       jest-changed-files: 29.7.0
-      jest-config: 29.7.0(@types/node@22.7.4)
+      jest-config: 29.7.0(@types/node@22.7.5)
       jest-haste-map: 29.7.0
       jest-message-util: 29.7.0
       jest-regex-util: 29.6.3
@@ -1042,7 +1042,7 @@ packages:
     dependencies:
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 22.7.4
+      '@types/node': 22.7.5
       jest-mock: 29.7.0
     dev: true
 
@@ -1069,7 +1069,7 @@ packages:
     dependencies:
       '@jest/types': 29.6.3
       '@sinonjs/fake-timers': 10.3.0
-      '@types/node': 22.7.4
+      '@types/node': 22.7.5
       jest-message-util: 29.7.0
       jest-mock: 29.7.0
       jest-util: 29.7.0
@@ -1102,7 +1102,7 @@ packages:
       '@jest/transform': 29.7.0
       '@jest/types': 29.6.3
       '@jridgewell/trace-mapping': 0.3.25
-      '@types/node': 22.7.4
+      '@types/node': 22.7.5
       chalk: 4.1.2
       collect-v8-coverage: 1.0.2
       exit: 0.1.2
@@ -1190,7 +1190,7 @@ packages:
       '@jest/schemas': 29.6.3
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 22.7.4
+      '@types/node': 22.7.5
       '@types/yargs': 17.0.33
       chalk: 4.1.2
     dev: true
@@ -1270,41 +1270,41 @@ packages:
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
     dev: true
 
-  /@shikijs/core@1.21.0:
-    resolution: {integrity: sha512-zAPMJdiGuqXpZQ+pWNezQAk5xhzRXBNiECFPcJLtUdsFM3f//G95Z15EHTnHchYycU8kIIysqGgxp8OVSj1SPQ==, tarball: https://registry.npmjs.org/@shikijs/core/-/core-1.21.0.tgz}
+  /@shikijs/core@1.22.0:
+    resolution: {integrity: sha512-S8sMe4q71TJAW+qG93s5VaiihujRK6rqDFqBnxqvga/3LvqHEnxqBIOPkt//IdXVtHkQWKu4nOQNk0uBGicU7Q==, tarball: https://registry.npmjs.org/@shikijs/core/-/core-1.22.0.tgz}
     dependencies:
-      '@shikijs/engine-javascript': 1.21.0
-      '@shikijs/engine-oniguruma': 1.21.0
-      '@shikijs/types': 1.21.0
-      '@shikijs/vscode-textmate': 9.2.2
+      '@shikijs/engine-javascript': 1.22.0
+      '@shikijs/engine-oniguruma': 1.22.0
+      '@shikijs/types': 1.22.0
+      '@shikijs/vscode-textmate': 9.3.0
       '@types/hast': 3.0.4
       hast-util-to-html: 9.0.3
     dev: true
 
-  /@shikijs/engine-javascript@1.21.0:
-    resolution: {integrity: sha512-jxQHNtVP17edFW4/0vICqAVLDAxmyV31MQJL4U/Kg+heQALeKYVOWo0sMmEZ18FqBt+9UCdyqGKYE7bLRtk9mg==, tarball: https://registry.npmjs.org/@shikijs/engine-javascript/-/engine-javascript-1.21.0.tgz}
+  /@shikijs/engine-javascript@1.22.0:
+    resolution: {integrity: sha512-AeEtF4Gcck2dwBqCFUKYfsCq0s+eEbCEbkUuFou53NZ0sTGnJnJ/05KHQFZxpii5HMXbocV9URYVowOP2wH5kw==, tarball: https://registry.npmjs.org/@shikijs/engine-javascript/-/engine-javascript-1.22.0.tgz}
     dependencies:
-      '@shikijs/types': 1.21.0
-      '@shikijs/vscode-textmate': 9.2.2
+      '@shikijs/types': 1.22.0
+      '@shikijs/vscode-textmate': 9.3.0
       oniguruma-to-js: 0.4.3
     dev: true
 
-  /@shikijs/engine-oniguruma@1.21.0:
-    resolution: {integrity: sha512-AIZ76XocENCrtYzVU7S4GY/HL+tgHGbVU+qhiDyNw1qgCA5OSi4B4+HY4BtAoJSMGuD/L5hfTzoRVbzEm2WTvg==, tarball: https://registry.npmjs.org/@shikijs/engine-oniguruma/-/engine-oniguruma-1.21.0.tgz}
+  /@shikijs/engine-oniguruma@1.22.0:
+    resolution: {integrity: sha512-5iBVjhu/DYs1HB0BKsRRFipRrD7rqjxlWTj4F2Pf+nQSPqc3kcyqFFeZXnBMzDf0HdqaFVvhDRAGiYNvyLP+Mw==, tarball: https://registry.npmjs.org/@shikijs/engine-oniguruma/-/engine-oniguruma-1.22.0.tgz}
     dependencies:
-      '@shikijs/types': 1.21.0
-      '@shikijs/vscode-textmate': 9.2.2
+      '@shikijs/types': 1.22.0
+      '@shikijs/vscode-textmate': 9.3.0
     dev: true
 
-  /@shikijs/types@1.21.0:
-    resolution: {integrity: sha512-tzndANDhi5DUndBtpojEq/42+dpUF2wS7wdCDQaFtIXm3Rd1QkrcVgSSRLOvEwexekihOXfbYJINW37g96tJRw==, tarball: https://registry.npmjs.org/@shikijs/types/-/types-1.21.0.tgz}
+  /@shikijs/types@1.22.0:
+    resolution: {integrity: sha512-Fw/Nr7FGFhlQqHfxzZY8Cwtwk5E9nKDUgeLjZgt3UuhcM3yJR9xj3ZGNravZZok8XmEZMiYkSMTPlPkULB8nww==, tarball: https://registry.npmjs.org/@shikijs/types/-/types-1.22.0.tgz}
     dependencies:
-      '@shikijs/vscode-textmate': 9.2.2
+      '@shikijs/vscode-textmate': 9.3.0
       '@types/hast': 3.0.4
     dev: true
 
-  /@shikijs/vscode-textmate@9.2.2:
-    resolution: {integrity: sha512-TMp15K+GGYrWlZM8+Lnj9EaHEFmOen0WJBrfa17hF7taDOYthuPPV0GWzfd/9iMij0akS/8Yw2ikquH7uVi/fg==, tarball: https://registry.npmjs.org/@shikijs/vscode-textmate/-/vscode-textmate-9.2.2.tgz}
+  /@shikijs/vscode-textmate@9.3.0:
+    resolution: {integrity: sha512-jn7/7ky30idSkd/O5yDBfAnVt+JJpepofP/POZ1iMOxK59cOfqIgg/Dj0eFsjOTMw+4ycJN0uhZH/Eb0bs/EUA==, tarball: https://registry.npmjs.org/@shikijs/vscode-textmate/-/vscode-textmate-9.3.0.tgz}
     dev: true
 
   /@sinclair/typebox@0.27.8:
@@ -1355,13 +1355,13 @@ packages:
   /@types/conventional-commits-parser@5.0.0:
     resolution: {integrity: sha512-loB369iXNmAZglwWATL+WRe+CRMmmBPtpolYzIebFaX4YA3x+BEfLqhUAV9WanycKI3TG1IMr5bMJDajDKLlUQ==, tarball: https://registry.npmjs.org/@types/conventional-commits-parser/-/conventional-commits-parser-5.0.0.tgz}
     dependencies:
-      '@types/node': 22.7.4
+      '@types/node': 22.7.5
     dev: true
 
   /@types/graceful-fs@4.1.9:
     resolution: {integrity: sha512-olP3sd1qOEe5dXTSaFvQG+02VdRXcdytWLAZsAq1PecU8uqQAhkrnbli7DagjtXKW/Bl7YJbUsa8MPcuc8LHEQ==, tarball: https://registry.npmjs.org/@types/graceful-fs/-/graceful-fs-4.1.9.tgz}
     dependencies:
-      '@types/node': 22.7.4
+      '@types/node': 22.7.5
     dev: true
 
   /@types/hast@3.0.4:
@@ -1403,8 +1403,8 @@ packages:
       '@types/unist': 3.0.3
     dev: true
 
-  /@types/node@22.7.4:
-    resolution: {integrity: sha512-y+NPi1rFzDs1NdQHHToqeiX2TIS79SWEAw9GYhkkx8bD0ChpfqC+n2j5OXOCpzfojBEBt6DnEnnG9MY0zk1XLg==, tarball: https://registry.npmjs.org/@types/node/-/node-22.7.4.tgz}
+  /@types/node@22.7.5:
+    resolution: {integrity: sha512-jML7s2NAzMWc//QSJ1a3prpk78cOPchGvXJsC3C6R6PSMoooztvRVQEz89gmBTBY1SPMaqo5teB4uNHPdetShQ==, tarball: https://registry.npmjs.org/@types/node/-/node-22.7.5.tgz}
     dependencies:
       undici-types: 6.19.8
     dev: true
@@ -2411,7 +2411,7 @@ packages:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==, tarball: https://registry.npmjs.org/convert-source-map/-/convert-source-map-2.0.0.tgz}
     dev: true
 
-  /cosmiconfig-typescript-loader@5.0.0(@types/node@22.7.4)(cosmiconfig@9.0.0)(typescript@5.6.2):
+  /cosmiconfig-typescript-loader@5.0.0(@types/node@22.7.5)(cosmiconfig@9.0.0)(typescript@5.6.2):
     resolution: {integrity: sha512-+8cK7jRAReYkMwMiG+bxhcNKiHJDM6bR9FD/nGBXOWdMLuYawjF5cGrtLilJ+LGd3ZjCXnJjR5DkfWPoIVlqJA==, tarball: https://registry.npmjs.org/cosmiconfig-typescript-loader/-/cosmiconfig-typescript-loader-5.0.0.tgz}
     engines: {node: '>=v16'}
     peerDependencies:
@@ -2419,7 +2419,7 @@ packages:
       cosmiconfig: '>=8.2'
       typescript: '>=4'
     dependencies:
-      '@types/node': 22.7.4
+      '@types/node': 22.7.5
       cosmiconfig: 9.0.0(typescript@5.6.2)
       jiti: 1.21.6
       typescript: 5.6.2
@@ -2441,7 +2441,7 @@ packages:
       typescript: 5.6.2
     dev: true
 
-  /create-jest@29.7.0(@types/node@22.7.4):
+  /create-jest@29.7.0(@types/node@22.7.5):
     resolution: {integrity: sha512-Adz2bdH0Vq3F53KEMJOoftQFutWCukm6J24wbPWRO4k1kMY7gS7ds/uoJkNuV8wDCtWWnuwGcJwpWcih+zEW1Q==, tarball: https://registry.npmjs.org/create-jest/-/create-jest-29.7.0.tgz}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     hasBin: true
@@ -2450,7 +2450,7 @@ packages:
       chalk: 4.1.2
       exit: 0.1.2
       graceful-fs: 4.2.11
-      jest-config: 29.7.0(@types/node@22.7.4)
+      jest-config: 29.7.0(@types/node@22.7.5)
       jest-util: 29.7.0
       prompts: 2.4.2
     transitivePeerDependencies:
@@ -3071,7 +3071,7 @@ packages:
       '@typescript-eslint/eslint-plugin': 7.18.0(@typescript-eslint/parser@7.12.0)(eslint@8.57.0)(typescript@5.6.2)
       '@typescript-eslint/utils': 8.8.0(eslint@8.57.0)(typescript@5.6.2)
       eslint: 8.57.0
-      jest: 29.7.0(@types/node@22.7.4)
+      jest: 29.7.0(@types/node@22.7.5)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -4159,7 +4159,7 @@ packages:
       '@jest/expect': 29.7.0
       '@jest/test-result': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 22.7.4
+      '@types/node': 22.7.5
       chalk: 4.1.2
       co: 4.6.0
       dedent: 1.5.1
@@ -4180,7 +4180,7 @@ packages:
       - supports-color
     dev: true
 
-  /jest-cli@29.7.0(@types/node@22.7.4):
+  /jest-cli@29.7.0(@types/node@22.7.5):
     resolution: {integrity: sha512-OVVobw2IubN/GSYsxETi+gOe7Ka59EFMR/twOU3Jb2GnKKeMGJB5SGUUrEz3SFVmJASUdZUzy83sLNNQ2gZslg==, tarball: https://registry.npmjs.org/jest-cli/-/jest-cli-29.7.0.tgz}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     hasBin: true
@@ -4194,10 +4194,10 @@ packages:
       '@jest/test-result': 29.7.0
       '@jest/types': 29.6.3
       chalk: 4.1.2
-      create-jest: 29.7.0(@types/node@22.7.4)
+      create-jest: 29.7.0(@types/node@22.7.5)
       exit: 0.1.2
       import-local: 3.1.0
-      jest-config: 29.7.0(@types/node@22.7.4)
+      jest-config: 29.7.0(@types/node@22.7.5)
       jest-util: 29.7.0
       jest-validate: 29.7.0
       yargs: 17.7.2
@@ -4208,7 +4208,7 @@ packages:
       - ts-node
     dev: true
 
-  /jest-config@29.7.0(@types/node@22.7.4):
+  /jest-config@29.7.0(@types/node@22.7.5):
     resolution: {integrity: sha512-uXbpfeQ7R6TZBqI3/TxCU4q4ttk3u0PJeC+E0zbfSoSjq6bJ7buBPxzQPL0ifrkY4DNu4JUdk0ImlBUYi840eQ==, tarball: https://registry.npmjs.org/jest-config/-/jest-config-29.7.0.tgz}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     peerDependencies:
@@ -4223,7 +4223,7 @@ packages:
       '@babel/core': 7.24.1
       '@jest/test-sequencer': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 22.7.4
+      '@types/node': 22.7.5
       babel-jest: 29.7.0(@babel/core@7.24.1)
       chalk: 4.1.2
       ci-info: 3.9.0
@@ -4283,7 +4283,7 @@ packages:
       '@jest/environment': 29.7.0
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 22.7.4
+      '@types/node': 22.7.5
       jest-mock: 29.7.0
       jest-util: 29.7.0
     dev: true
@@ -4299,7 +4299,7 @@ packages:
     dependencies:
       '@jest/types': 29.6.3
       '@types/graceful-fs': 4.1.9
-      '@types/node': 22.7.4
+      '@types/node': 22.7.5
       anymatch: 3.1.3
       fb-watchman: 2.0.2
       graceful-fs: 4.2.11
@@ -4350,7 +4350,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 22.7.4
+      '@types/node': 22.7.5
       jest-util: 29.7.0
     dev: true
 
@@ -4405,7 +4405,7 @@ packages:
       '@jest/test-result': 29.7.0
       '@jest/transform': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 22.7.4
+      '@types/node': 22.7.5
       chalk: 4.1.2
       emittery: 0.13.1
       graceful-fs: 4.2.11
@@ -4436,7 +4436,7 @@ packages:
       '@jest/test-result': 29.7.0
       '@jest/transform': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 22.7.4
+      '@types/node': 22.7.5
       chalk: 4.1.2
       cjs-module-lexer: 1.2.3
       collect-v8-coverage: 1.0.2
@@ -4488,7 +4488,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 22.7.4
+      '@types/node': 22.7.5
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -4513,7 +4513,7 @@ packages:
     dependencies:
       '@jest/test-result': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 22.7.4
+      '@types/node': 22.7.5
       ansi-escapes: 4.3.2
       chalk: 4.1.2
       emittery: 0.13.1
@@ -4525,13 +4525,13 @@ packages:
     resolution: {integrity: sha512-eIz2msL/EzL9UFTFFx7jBTkeZfku0yUAyZZZmJ93H2TYEiroIx2PQjEXcwYtYl8zXCxb+PAmA2hLIt/6ZEkPHw==, tarball: https://registry.npmjs.org/jest-worker/-/jest-worker-29.7.0.tgz}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
-      '@types/node': 22.7.4
+      '@types/node': 22.7.5
       jest-util: 29.7.0
       merge-stream: 2.0.0
       supports-color: 8.1.1
     dev: true
 
-  /jest@29.7.0(@types/node@22.7.4):
+  /jest@29.7.0(@types/node@22.7.5):
     resolution: {integrity: sha512-NIy3oAFp9shda19hy4HK0HRTWKtPJmGdnvywu01nOqNC2vZg+Z+fvJDxpMQA88eb2I9EcafcdjYgsDthnYTvGw==, tarball: https://registry.npmjs.org/jest/-/jest-29.7.0.tgz}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     hasBin: true
@@ -4544,7 +4544,7 @@ packages:
       '@jest/core': 29.7.0
       '@jest/types': 29.6.3
       import-local: 3.1.0
-      jest-cli: 29.7.0(@types/node@22.7.4)
+      jest-cli: 29.7.0(@types/node@22.7.5)
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
@@ -5703,14 +5703,14 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /shiki@1.21.0:
-    resolution: {integrity: sha512-apCH5BoWTrmHDPGgg3RF8+HAAbEL/CdbYr8rMw7eIrdhCkZHdVGat5mMNlRtd1erNG01VPMIKHNQ0Pj2HMAiog==, tarball: https://registry.npmjs.org/shiki/-/shiki-1.21.0.tgz}
+  /shiki@1.22.0:
+    resolution: {integrity: sha512-/t5LlhNs+UOKQCYBtl5ZsH/Vclz73GIqT2yQsCBygr8L/ppTdmpL4w3kPLoZJbMKVWtoG77Ue1feOjZfDxvMkw==, tarball: https://registry.npmjs.org/shiki/-/shiki-1.22.0.tgz}
     dependencies:
-      '@shikijs/core': 1.21.0
-      '@shikijs/engine-javascript': 1.21.0
-      '@shikijs/engine-oniguruma': 1.21.0
-      '@shikijs/types': 1.21.0
-      '@shikijs/vscode-textmate': 9.2.2
+      '@shikijs/core': 1.22.0
+      '@shikijs/engine-javascript': 1.22.0
+      '@shikijs/engine-oniguruma': 1.22.0
+      '@shikijs/types': 1.22.0
+      '@shikijs/vscode-textmate': 9.3.0
       '@types/hast': 3.0.4
     dev: true
 
@@ -6083,7 +6083,7 @@ packages:
       ejs: 3.1.10
       esbuild: 0.24.0
       fast-json-stable-stringify: 2.1.0
-      jest: 29.7.0(@types/node@22.7.4)
+      jest: 29.7.0(@types/node@22.7.5)
       jest-util: 29.7.0
       json5: 2.2.3
       lodash.memoize: 4.1.2
@@ -6181,8 +6181,8 @@ packages:
       possible-typed-array-names: 1.0.0
     dev: true
 
-  /typedoc@0.26.7(typescript@5.6.2):
-    resolution: {integrity: sha512-gUeI/Wk99vjXXMi8kanwzyhmeFEGv1LTdTQsiyIsmSYsBebvFxhbcyAx7Zjo4cMbpLGxM4Uz3jVIjksu/I2v6Q==, tarball: https://registry.npmjs.org/typedoc/-/typedoc-0.26.7.tgz}
+  /typedoc@0.26.8(typescript@5.6.2):
+    resolution: {integrity: sha512-QBF0BMbnNeUc6U7pRHY7Jb8pjhmiNWZNQT8LU6uk9qP9t3goP9bJptdlNqMC0wBB2w9sQrxjZt835bpRSSq1LA==, tarball: https://registry.npmjs.org/typedoc/-/typedoc-0.26.8.tgz}
     engines: {node: '>= 18'}
     hasBin: true
     peerDependencies:
@@ -6191,7 +6191,7 @@ packages:
       lunr: 2.3.9
       markdown-it: 14.1.0
       minimatch: 9.0.5
-      shiki: 1.21.0
+      shiki: 1.22.0
       typescript: 5.6.2
       yaml: 2.5.1
     dev: true
