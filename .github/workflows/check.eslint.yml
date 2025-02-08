@@ -38,7 +38,7 @@ jobs:
         with:
           bun-version: latest
       - name: 'Setup: PNPM'
-        uses: pnpm/action-setup@a3252b78c470c02df07e9d59298aecedc3ccdd6d # v3.0.0
+        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
         with:
           version: '8.15.3'
           run_install: |
