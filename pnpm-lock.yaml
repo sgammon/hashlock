@@ -87,8 +87,8 @@ devDependencies:
     specifier: 8.0.0
     version: 8.0.0
   path-scurry:
-    specifier: 1.11.1
-    version: 1.11.1
+    specifier: 2.0.0
+    version: 2.0.0
   prettier:
     specifier: 3.3.3
     version: 3.3.3
@@ -4842,11 +4842,6 @@ packages:
     engines: {node: '>= 0.6.0'}
     dev: true
 
-  /lru-cache@10.2.2:
-    resolution: {integrity: sha512-9hp3Vp2/hFQUiIwKo8XCeFVnrg8Pk3TYNPIR7tJADKi5YfcF7vEaK7avFHTlSy3kOKYaJQaalfEo6YuXdceBOQ==, tarball: https://registry.npmjs.org/lru-cache/-/lru-cache-10.2.2.tgz}
-    engines: {node: 14 || >=16.14}
-    dev: true
-
   /lru-cache@11.0.0:
     resolution: {integrity: sha512-Qv32eSV1RSCfhY3fpPE2GNZ8jgM9X7rdAfemLWqTUxwiyIC4jJ6Sy0fZ8H+oLWevO6i4/bizg7c8d8i6bxrzbA==, tarball: https://registry.npmjs.org/lru-cache/-/lru-cache-11.0.0.tgz}
     engines: {node: 20 || >=22}
@@ -5340,14 +5335,6 @@ packages:
 
   /path-parse@1.0.7:
     resolution: {integrity: sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==, tarball: https://registry.npmjs.org/path-parse/-/path-parse-1.0.7.tgz}
-    dev: true
-
-  /path-scurry@1.11.1:
-    resolution: {integrity: sha512-Xa4Nw17FS9ApQFJ9umLiJS4orGjm7ZzwUrwamcGQuHSzDyth9boKDaycYdDcZDuqYATXw4HFXgaqWTctW/v1HA==, tarball: https://registry.npmjs.org/path-scurry/-/path-scurry-1.11.1.tgz}
-    engines: {node: '>=16 || 14 >=14.18'}
-    dependencies:
-      lru-cache: 10.2.2
-      minipass: 7.1.2
     dev: true
 
   /path-scurry@2.0.0:
