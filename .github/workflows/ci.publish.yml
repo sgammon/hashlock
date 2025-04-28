@@ -110,7 +110,7 @@ jobs:
       registry: ${{ steps.metadata.outputs.registry }}
     steps:
       - name: 'Setup: Harden Runner'
-        uses: step-security/harden-runner@0080882f6c36860b6ba35c610c98ce87d4e2f26f # v2.10.2
+        uses: step-security/harden-runner@0634a2670c59f64b4a01f0f96f84700a4088b9f0 # v2.12.0
         with:
           disable-sudo: true
           egress-policy: block
@@ -128,12 +128,12 @@ jobs:
         with:
           persist-credentials: false
       - name: 'Setup: Node'
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version-file: .node-version
           registry-url: ${{ inputs.registry }}
       - name: 'Setup: Bun'
-        uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5 # v2.0.1
+        uses: oven-sh/setup-bun@735343b667d3e6f658f44d0eca948eb6282f2b76 # v2.0.2
         with:
           bun-version: latest
       - name: 'Setup: PNPM'
@@ -178,7 +178,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_TOKEN || github.token }}
       - name: 'Artifact: Package'
-        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: ${{ inputs.artifact }}
           retention-days: 7
